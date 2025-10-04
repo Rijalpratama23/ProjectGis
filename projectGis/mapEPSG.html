@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Peta EPSG:4326 - Lokasi Fasilitas Ramah Disabilitas</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</head>
+<body>
+  <h1>Peta EPSG:4326</h1>
+  <div id="map" style="height: 500px; background: #003;"></div>
+
+  <script>
+    // Inisialisasi peta dengan proyeksi EPSG:4326
+    var map = L.map('map', {
+      crs: L.CRS.EPSG4326,
+      center: [-6.1727917203330716, 106.775107417417],
+      zoom: 13
+    });
+
+    // Karena OSM tile default hanya ada di Web Mercator,
+    // kita pakai WMS publik dari GeoServer (Natural Earth)
+    L.tileLayer.wms("https://ahocevar.com/geoserver/wms", {
+      layers: 'ne:NE1_HR_LC_SR_W_DR',
+      format: 'image/png',
+      transparent: false,
+      attribution: "Natural Earth"
+    }).addTo(map);
+
+    // Tambahkan data GeoJSON (sama seperti di peta Mercator)
+    fetch("map.geojson")
+      .then(res => res.json())
+      .then(data => {
+        L.geoJSON(data, {
+          onEachFeature: function (feature, layer) {
+            layer.bindPopup(feature.properties.Nama);
+          }
+        }).addTo(map);
+      });
+  </script>
+</body>
+</html>
