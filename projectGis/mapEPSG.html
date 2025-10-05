@@ -12,15 +12,10 @@
   <div id="map" style="height: 500px; background: #003;"></div>
 
   <script>
-    // Inisialisasi peta dengan proyeksi EPSG:4326
-    var map = L.map('map', {
-      crs: L.CRS.EPSG4326,
+    var map = L.map('map', {crs: L.CRS.EPSG4326,
       center: [-6.1727917203330716, 106.775107417417],
       zoom: 13
     });
-
-    // Karena OSM tile default hanya ada di Web Mercator,
-    // kita pakai WMS publik dari GeoServer (Natural Earth)
     L.tileLayer.wms("https://ahocevar.com/geoserver/wms", {
       layers: 'ne:NE1_HR_LC_SR_W_DR',
       format: 'image/png',
@@ -28,7 +23,6 @@
       attribution: "Natural Earth"
     }).addTo(map);
 
-    // Tambahkan data GeoJSON (sama seperti di peta Mercator)
     fetch("map.geojson")
       .then(res => res.json())
       .then(data => {L.geoJSON(data, {onEachFeature: function (feature, layer) {layer.bindPopup(feature.properties.Nama);}}).addTo(map);
