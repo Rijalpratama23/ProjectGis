@@ -10,11 +10,9 @@
 <body>
     <h1> Pemetaan daerah rawan banjir di kota Jakarta Barat menggunakan GIS </h1>
     <div id="map" style="background-color: rgb(3, 3, 92);height: 500px;">ini map</div>
-
     <script>
         var map = L.map('map').setView([-6.1727917203330716, 106.775107417417],13);
         var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-
         //tambahkan geojson ke map
         fetch("map.geojson")
         .then(res => res.json())
