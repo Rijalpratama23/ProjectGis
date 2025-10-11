@@ -1,0 +1,21 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {"name": "Nusa Putra University"},
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.87321616817877, -6.905379669064089]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {"name": "Mesjid RI"},
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.87318777601035, -6.905971579172743]
+      }
+    }
+  ]
+}

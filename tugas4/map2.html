@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Map of Cisaat</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</head>
+<body>
+  <h2>Map of Cisaat</h2>
+  <div id="map" style="height: 600px;"></div>
+
+  <script>
+    // Inisialisasi peta
+    var map = L.map('map').setView([-6.155996, 106.798127], 18);
+
+    // --- Base Maps ---
+    var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '© OpenStreetMap'
+    }).addTo(map);
+
+    var satellite = L.tileLayer(
+      'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+      {
+        maxZoom: 19,
+        attribution: 'Tiles © Esri'
+      }
+    );
+
+    // --- Overlay Layers ---
+    var markerLayer = L.layerGroup();
+    var polylineLayer = L.layerGroup();
+    var polygonLayer = L.layerGroup();
+
+    // Fungsi umum untuk bind popup
+    function onEachFeature(feature, layer) {
+      if (feature.properties && feature.properties.name) {
+        layer.bindPopup(feature.properties.name);
+      }
+    }
+
+    // Load Marker GeoJSON
+    fetch('marker.geojson')
+      .then(res => res.json())
+      .then(data => {
+        L.geoJSON(data, {
+          onEachFeature: onEachFeature
+        }).addTo(markerLayer);
+      });
+
+    // Load Polyline GeoJSON
+    fetch('polyline.geojson')
+      .then(res => res.json())
+      .then(data => {
+        L.geoJSON(data, {
+          style: { color: 'blue' },
+          onEachFeature: onEachFeature
+        }).addTo(polylineLayer);
+      });
+
+    // Load Polygon GeoJSON
+    fetch('polygon.geojson')
+      .then(res => res.json())
+      .then(data => {
+        L.geoJSON(data, {
+          style: { color: 'red', fillOpacity: 0.3 },
+          onEachFeature: onEachFeature
+        }).addTo(polygonLayer);
+      });
+
+    // --- Layer Control ---
+    var baseMaps = {
+      "OpenStreetMap": osm,
+      "Satellite": satellite
+    };
+
+    var overlayMaps = {
+      "Marker": markerLayer,
+      "Polyline": polylineLayer,
+      "Polygon": polygonLayer
+    };
+
+    L.control.layers(baseMaps, overlayMaps).addTo(map);
+
+    // Tampilkan semua overlay secara default
+    markerLayer.addTo(map);
+    polylineLayer.addTo(map);
+    polygonLayer.addTo(map);
+
+  </script>
+</body>
+</html>
