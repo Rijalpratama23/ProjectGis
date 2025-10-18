@@ -3,7 +3,7 @@
   "features": [
     {
       "type": "Feature",
-      "properties": { "Nama": "Air Banjir" },
+      "properties": { "name": "Air Banjir" },
       "geometry": {
         "coordinates": [
           [
@@ -19,7 +19,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Nama": "Area Rawan Banjir" },
+      "properties": { "name": "Area Rawan Banjir" },
       "geometry": {
         "coordinates": [
           [
@@ -36,7 +36,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "nama": "Posko Evakuasi" },
+      "properties": { "name": "Posko Evakuasi" },
       "geometry": {
         "coordinates": [
           [

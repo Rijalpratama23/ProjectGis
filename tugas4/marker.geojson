@@ -3,7 +3,7 @@
   "features": [
     {
       "type": "Feature",
-      "properties": { "Nama": "Pemukiman Warga Kali Anyar" },
+      "properties": { "name": "Pemukiman Warga Kali Anyar" },
       "geometry": {
         "coordinates": [106.79808154247416, -6.156730766483946],
         "type": "Point"
@@ -11,7 +11,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Nama": "Balai Pertemuan RW 03 Kali Anyar V" },
+      "properties": { "name": "Balai Pertemuan RW 03 Kali Anyar V" },
       "geometry": {
         "coordinates": [106.79788028011603, -6.157392645714637],
         "type": "Point"
@@ -19,7 +19,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "Nama": "Sungai Kali Anyar" },
+      "properties": { "name": "Sungai Kali Anyar" },
       "geometry": {
         "coordinates": [106.79625880086633, -6.156737738401304],
         "type": "Point"
@@ -27,5 +27,3 @@
     }
   ]
 }
-
-
