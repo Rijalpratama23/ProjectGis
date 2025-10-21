@@ -1,106 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Map Rawan Banjir - Fix Popup Stay on Marker</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-    h1 { text-align: center; padding: 10px; }
-    #map { height: 600px; border: 1px solid #ccc; border-radius: 5px; }
-    #info {
-      position: absolute; top: 15px; right: 15px;
-      background: rgba(255, 255, 255, 0.95);
-      padding: 10px; border-radius: 6px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-      width: 260px; max-height: 70vh; overflow: auto; z-index: 999;
-    }
-    .popup-container { font-size: 14px; line-height: 1.5; }
-    .popup-image { width: 100%; max-height: 150px; border-radius: 4px; margin-bottom: 6px; }
-    .btn-detail {
-      display: inline-block; padding: 6px 10px;
-      background: #1e90ff; color: #fff; border-radius: 4px;
-      text-decoration: none; font-size: 13px; cursor: pointer;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Map Rawan Banjir - Fix Popup Stay on Marker</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #1e90ff;
+      }
+      h1 {
+        text-align: center;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size: 30px;
+        padding: 10px;
+        font-weight: bold;
+      }
+      #map {
+        height: 100vh;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      .title {
+        background-color: #1e90ff;
+        
+      }
+      #info {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 10px;
+        border-radius: 6px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        width: 260px;
+        max-height: 70vh;
+        overflow: auto;
+        z-index: 999;
+      }
+      .popup-container {
+        font-size: 14px;
+        line-height: 1.5;
+      }
+      .popup-image {
+        width: 100%;
+        max-height: 150px;
+        border-radius: 4px;
+        margin-bottom: 6px;
+      }
+      .btn-detail {
+        display: inline-block;
+        padding: 6px 10px;
+        background: #1e90ff;
+        color: #fff;
+        border-radius: 4px;
+        text-decoration: none;
+        font-size: 13px;
+        cursor: pointer;
+      }
 
-    /* ===== Bounce di elemen internal ===== */
-    .marker-bounce-inner {
-      display: inline-block;
-      transition: transform 0.2s ease;
-    }
-    .marker-bounce-inner.bouncing {
-      animation: bounce 0.6s ease-in-out;
-    }
+      /* ===== Bounce di elemen internal ===== */
+      .marker-bounce-inner {
+        display: inline-block;
+        transition: transform 0.2s ease;
+      }
+      .marker-bounce-inner.bouncing {
+        animation: bounce 0.6s ease-in-out;
+      }
 
-    @keyframes bounce {
-      0% { transform: translateY(0); }
-      25% { transform: translateY(-15px); }
-      50% { transform: translateY(0); }
-      75% { transform: translateY(-8px); }
-      100% { transform: translateY(0); }
-    }
-  </style>
-</head>
-<body>
-  <h1>Map Rawan Banjir - Interaktif</h1>
-  <div id="map"></div>
-  <div id="info">
-    <strong>Detail:</strong>
-    <div id="info-content">
-      <em>Hover atau klik marker untuk melihat detail.</em>
+      @keyframes bounce {
+        0% {
+          transform: translateY(0);
+        }
+        25% {
+          transform: translateY(-15px);
+        }
+        50% {
+          transform: translateY(0);
+        }
+        75% {
+          transform: translateY(-8px);
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="title">
+      <h1>Map Rawan Banjir - Interaktif</h1>
     </div>
-  </div>
+    <div id="map"></div>
+    <div id="info">
+      <strong>Detail:</strong>
+      <div id="info-content">
+        <em>Hover atau klik marker untuk melihat detail.</em>
+      </div>
+    </div>
 
-  <script>
-    const map = L.map('map').setView([-6.156, 106.798], 15);
+    <script>
+      const map = L.map('map').setView([-6.156, 106.798], 15);
 
-    const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19, attribution: '© OpenStreetMap'
-    }).addTo(map);
+      const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap',
+      }).addTo(map);
 
-    const satellite = L.tileLayer(
-      'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-      { maxZoom: 19, attribution: 'Tiles © Esri' }
-    );
+      const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19, attribution: 'Tiles © Esri' });
 
-    // Layer groups
-    const markerLayer = L.layerGroup().addTo(map);
-    const polylineLayer = L.layerGroup();
-    const polygonLayer = L.layerGroup();
-    const banjirLayer = L.layerGroup();
+      // Layer groups
+      const markerLayer = L.layerGroup().addTo(map);
+      const polylineLayer = L.layerGroup();
+      const polygonLayer = L.layerGroup();
+      const banjirLayer = L.layerGroup();
 
-    // Custom DivIcon (supaya bisa animasi tanpa geser popup)
-    const iconFlood = L.divIcon({
-      className: '', // kosong supaya kita kontrol sendiri
-      html: `<div class="marker-bounce-inner"><img src="asset/banjir.png" width="36" height="36"/></div>`,
-      iconSize: [36, 36],
-      iconAnchor: [18, 36],
-      popupAnchor: [0, -36],
-    });
+      // Custom DivIcon (supaya bisa animasi tanpa geser popup)
+      const iconFlood = L.divIcon({
+        className: '', // kosong supaya kita kontrol sendiri
+        html: `<div class="marker-bounce-inner"><img src="asset/banjir.png" width="36" height="36"/></div>`,
+        iconSize: [36, 36],
+        iconAnchor: [18, 36],
+        popupAnchor: [0, -36],
+      });
 
-    function setInfo(html) {
-      document.getElementById('info-content').innerHTML = html;
-    }
+      function setInfo(html) {
+        document.getElementById('info-content').innerHTML = html;
+      }
 
-    function onPopupDetail(name, tingkat) {
-      setInfo(`<strong>${name}</strong><br>Tingkat Kerawanan: ${tingkat}`);
-      alert('Menampilkan detail untuk: ' + name);
-    }
+      function onPopupDetail(name, tingkat) {
+        setInfo(`<strong>${name}</strong><br>Tingkat Kerawanan: ${tingkat}`);
+        alert('Menampilkan detail untuk: ' + name);
+      }
 
-    // Load marker.geojson
-    fetch('marker.geojson')
-      .then(res => res.json())
-      .then(data => {
-        L.geoJSON(data, {
-          pointToLayer: (feature, latlng) => {
-            const marker = L.marker(latlng, { icon: iconFlood, draggable: true });
-            const title = feature.properties.name || 'Keterangan';
-            const coordText = `${latlng.lat.toFixed(6)}, ${latlng.lng.toFixed(6)}`;
-            marker.bindTooltip(`${title} (${coordText})`, { direction: 'top', sticky: true });
+      // Load marker.geojson
+      fetch('marker.geojson')
+        .then((res) => res.json())
+        .then((data) => {
+          L.geoJSON(data, {
+            pointToLayer: (feature, latlng) => {
+              const marker = L.marker(latlng, { icon: iconFlood, draggable: true });
+              const title = feature.properties.name || 'Keterangan';
+              const coordText = `${latlng.lat.toFixed(6)}, ${latlng.lng.toFixed(6)}`;
+              marker.bindTooltip(`${title} (${coordText})`, { direction: 'top', sticky: true });
 
-            const popupHTML = `
+              const popupHTML = `
               <div class="popup-container">
                 <img src="asset/flood.jpg" class="popup-image" onerror="this.style.display='none'"/>
                 <h4>${title}</h4>
@@ -112,89 +160,89 @@
                 </button>
               </div>
             `;
-            marker.bindPopup(popupHTML);
+              marker.bindPopup(popupHTML);
 
-            marker.on('click', e => {
-              const iconInner = e.target._icon.querySelector('.marker-bounce-inner');
-              if (iconInner) {
-                iconInner.classList.add('bouncing');
-                setTimeout(() => iconInner.classList.remove('bouncing'), 600);
-              }
-              marker.openPopup();
-              setInfo(`<strong>${title}</strong><br>Koordinat: ${coordText}`);
-            });
+              marker.on('click', (e) => {
+                const iconInner = e.target._icon.querySelector('.marker-bounce-inner');
+                if (iconInner) {
+                  iconInner.classList.add('bouncing');
+                  setTimeout(() => iconInner.classList.remove('bouncing'), 600);
+                }
+                marker.openPopup();
+                setInfo(`<strong>${title}</strong><br>Koordinat: ${coordText}`);
+              });
 
-            marker.on('mouseover', e => {
-              e.target._icon.querySelector('img').style.transform = 'scale(1.25)';
-              setInfo(`<strong>${title}</strong><br>Koordinat: ${coordText}`);
-            });
-            marker.on('mouseout', e => {
-              e.target._icon.querySelector('img').style.transform = '';
-              setInfo('<em>Hover atau klik marker untuk melihat detail.</em>');
-            });
+              marker.on('mouseover', (e) => {
+                e.target._icon.querySelector('img').style.transform = 'scale(1.25)';
+                setInfo(`<strong>${title}</strong><br>Koordinat: ${coordText}`);
+              });
+              marker.on('mouseout', (e) => {
+                e.target._icon.querySelector('img').style.transform = '';
+                setInfo('<em>Hover atau klik marker untuk melihat detail.</em>');
+              });
 
-            marker.on('dragend', e => {
-              const pos = e.target.getLatLng();
-              setInfo(`<strong>${title}</strong><br>Pindah ke: ${pos.lat.toFixed(6)}, ${pos.lng.toFixed(6)}`);
-            });
+              marker.on('dragend', (e) => {
+                const pos = e.target.getLatLng();
+                setInfo(`<strong>${title}</strong><br>Pindah ke: ${pos.lat.toFixed(6)}, ${pos.lng.toFixed(6)}`);
+              });
 
-            return marker;
-          }
-        }).addTo(markerLayer);
-      });
+              return marker;
+            },
+          }).addTo(markerLayer);
+        });
 
-    // Polyline layer
-    fetch('polyline.geojson')
-      .then(res => res.json())
-      .then(data => {
-        L.geoJSON(data, {
-          style: { color: 'blue', weight: 2 },
-          onEachFeature: (f, layer) => {
-            layer.bindTooltip(f.properties.name || 'Jalur Air');
-          },
-        }).addTo(polylineLayer);
-      });
+      // Polyline layer
+      fetch('polyline.geojson')
+        .then((res) => res.json())
+        .then((data) => {
+          L.geoJSON(data, {
+            style: { color: 'blue', weight: 2 },
+            onEachFeature: (f, layer) => {
+              layer.bindTooltip(f.properties.name || 'Jalur Air');
+            },
+          }).addTo(polylineLayer);
+        });
 
-    // Polygon layer
-    fetch('polygon.geojson')
-      .then(res => res.json())
-      .then(data => {
-        L.geoJSON(data, {
-          style: { color: 'red', fillOpacity: 0.3 },
-          onEachFeature: (f, layer) => {
-            layer.bindTooltip(f.properties.name || 'Area Banjir');
-          },
-        }).addTo(polygonLayer);
-      });
+      // Polygon layer
+      fetch('polygon.geojson')
+        .then((res) => res.json())
+        .then((data) => {
+          L.geoJSON(data, {
+            style: { color: 'red', fillOpacity: 0.3 },
+            onEachFeature: (f, layer) => {
+              layer.bindTooltip(f.properties.name || 'Area Banjir');
+            },
+          }).addTo(polygonLayer);
+        });
 
-    // Area Rawan Banjir
-    fetch('map.geojson')
-      .then(res => res.json())
-      .then(data => {
-        L.geoJSON(data, {
-          style: f => {
-            let warna = 'yellow';
-            if (f.properties.tingkat === 'tinggi') warna = 'red';
-            else if (f.properties.tingkat === 'sedang') warna = 'orange';
-            else if (f.properties.tingkat === 'rendah') warna = 'green';
-            return { color: warna, weight: 2, opacity: 0.8, fillOpacity: 0.4 };
-          },
-          onEachFeature: (f, layer) => {
-            layer.bindTooltip(f.properties.name || 'Area Rawan Banjir');
-          },
-        }).addTo(banjirLayer);
-      });
+      // Area Rawan Banjir
+      fetch('map.geojson')
+        .then((res) => res.json())
+        .then((data) => {
+          L.geoJSON(data, {
+            style: (f) => {
+              let warna = 'yellow';
+              if (f.properties.tingkat === 'tinggi') warna = 'red';
+              else if (f.properties.tingkat === 'sedang') warna = 'orange';
+              else if (f.properties.tingkat === 'rendah') warna = 'green';
+              return { color: warna, weight: 2, opacity: 0.8, fillOpacity: 0.4 };
+            },
+            onEachFeature: (f, layer) => {
+              layer.bindTooltip(f.properties.name || 'Area Rawan Banjir');
+            },
+          }).addTo(banjirLayer);
+        });
 
-    const baseMaps = { "OpenStreetMap": osm, "Satellite": satellite };
-    const overlayMaps = {
-      "Markers": markerLayer,
-      "Polyline": polylineLayer,
-      "Polygon": polygonLayer,
-      "Area Rawan Banjir": banjirLayer,
-    };
-    L.control.layers(baseMaps, overlayMaps).addTo(map);
+      const baseMaps = { OpenStreetMap: osm, Satellite: satellite };
+      const overlayMaps = {
+        Markers: markerLayer,
+        Polyline: polylineLayer,
+        Polygon: polygonLayer,
+        'Area Rawan Banjir': banjirLayer,
+      };
+      L.control.layers(baseMaps, overlayMaps).addTo(map);
 
-    banjirLayer.addTo(map);
-  </script>
-</body>
+      banjirLayer.addTo(map);
+    </script>
+  </body>
 </html>
