@@ -6,9 +6,13 @@
     <title>Map Rawan Banjir - Fix Popup Stay on Marker</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <!-- link font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
     <style>
       body {
-        font-family: Arial, sans-serif;
+        font-family: "Roboto", sans-serif;
         margin: 0;
         padding: 0;
         background-color: #1e90ff;
@@ -93,7 +97,10 @@
   </head>
   <body>
     <div class="title">
-      <h1>Map Rawan Banjir - Interaktif</h1>
+      <h1>
+        Map Rawan Banjir Kota Jakarta Barat <br />
+        Daerah Kali Anyar
+      </h1>
     </div>
     <div id="map"></div>
     <div id="info">
@@ -105,6 +112,15 @@
 
     <script>
       const map = L.map('map').setView([-6.156, 106.798], 15);
+
+      // fitur tampilkan koordinat
+      map.on('click', function (e) {
+        const { lat, lng } = e.latlng;
+        L.popup()
+          .setLatLng(e.latlng)
+          .setContent(`Koordinat: <b>${lat.toFixed(6)}, ${lng.toFixed(6)}</b>`)
+          .openOn(map);
+      });
 
       const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
