@@ -3,61 +3,6 @@
   "features": [
     {
       "type": "Feature",
-      "properties": {
-        "name": "Pemukiman Warga Kali Anyar"
-      },
-      "geometry": {
-        "coordinates": [106.79808154247416, -6.156730766483946],
-        "type": "Point"
-      },
-      "id": 0
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Balai Pertemuan RW 03 Kali Anyar V"
-      },
-      "geometry": {
-        "coordinates": [106.79788028011603, -6.157392645714637],
-        "type": "Point"
-      },
-      "id": 1
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Sungai Kali Anyar"
-      },
-      "geometry": {
-        "coordinates": [106.79625880086633, -6.156737738401304],
-        "type": "Point"
-      },
-      "id": 2
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "jalanan umum"
-      },
-      "geometry": {
-        "coordinates": [106.79583726758511, -6.157292449163549],
-        "type": "Point"
-      },
-      "id": 3
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "alfamart"
-      },
-      "geometry": {
-        "coordinates": [106.7954653743405, -6.156617320922479],
-        "type": "Point"
-      },
-      "id": 4
-    },
-    {
-      "type": "Feature",
       "properties": {},
       "geometry": {
         "coordinates": [
@@ -67,17 +12,6 @@
         ],
         "type": "LineString"
       }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "perumahan warga"
-      },
-      "geometry": {
-        "coordinates": [106.79718061432357, -6.156242196502973],
-        "type": "Point"
-      },
-      "id": 6
     },
     {
       "type": "Feature",

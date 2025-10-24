@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
     <style>
       body {
-        font-family: "Roboto", sans-serif;
+        font-family: 'Roboto', sans-serif;
         margin: 0;
         padding: 0;
         background-color: #1e90ff;
@@ -111,7 +111,7 @@
     </div>
 
     <script>
-      const map = L.map('map').setView([-6.156, 106.798], 15);
+      const map = L.map('map').setView([-6.156, 106.798], 18);
 
       // fitur tampilkan koordinat
       map.on('click', function (e) {
@@ -135,9 +135,9 @@
       const polygonLayer = L.layerGroup();
       const banjirLayer = L.layerGroup();
 
-      // Custom DivIcon (supaya bisa animasi tanpa geser popup)
+      // Custom DivIcon
       const iconFlood = L.divIcon({
-        className: '', // kosong supaya kita kontrol sendiri
+        className: '',
         html: `<div class="marker-bounce-inner"><img src="asset/banjir.png" width="36" height="36"/></div>`,
         iconSize: [36, 36],
         iconAnchor: [18, 36],
@@ -148,14 +148,29 @@
         document.getElementById('info-content').innerHTML = html;
       }
 
-      function onPopupDetail(name, tingkat) {
+      // FIX: Tombol "Lihat Detail"
+      window.onPopupDetail = function (name, tingkat) {
         setInfo(`<strong>${name}</strong><br>Tingkat Kerawanan: ${tingkat}`);
         alert('Menampilkan detail untuk: ' + name);
+      };
+
+      // --- Fungsi Cek Error Fetch ---
+      function checkFetch(response, fileName) {
+        if (!response.ok) {
+          // Error 404 (Not Found) atau 500 (Server Error)
+          throw new Error(`Gagal memuat ${fileName} (Error: ${response.status})`);
+        }
+        return response.json();
+      }
+      function handleError(error) {
+        console.error(error);
+        // Tampilkan error di Info Box
+        setInfo(`<span style="color: red;">${error.message}. Cek Console (F12) & pastikan file ada.</span>`);
       }
 
       // Load marker.geojson
       fetch('marker.geojson')
-        .then((res) => res.json())
+        .then((res) => checkFetch(res, 'marker.geojson'))
         .then((data) => {
           L.geoJSON(data, {
             pointToLayer: (feature, latlng) => {
@@ -165,19 +180,20 @@
               marker.bindTooltip(`${title} (${coordText})`, { direction: 'top', sticky: true });
 
               const popupHTML = `
-              <div class="popup-container">
-                <img src="asset/flood.jpg" class="popup-image" onerror="this.style.display='none'"/>
-                <h4>${title}</h4>
-                <p><strong>Tingkat Kerawanan:</strong> ${feature.properties.tingkat || 'Sedang'}</p>
-                <p><strong>Deskripsi:</strong> ${feature.properties.deskripsi || 'Wilayah ini teridentifikasi rawan banjir.'}</p>
-                <p><strong>Koordinat:</strong> ${coordText}</p>
-                <button class="btn-detail" onclick="onPopupDetail('${title}', '${feature.properties.tingkat || 'Sedang'}')">
-                  Lihat Detail
-                </button>
-              </div>
-            `;
+            <div class="popup-container">
+              <img src="asset/flood.jpg" class="popup-image" onerror="this.style.display='none'"/>
+              <h4>${title}</h4>
+              <p><strong>Tingkat Kerawanan:</strong> ${feature.properties.tingkat || 'Darurat'}</p>
+              <p><strong>Deskripsi:</strong> ${feature.properties.deskripsi || 'Wilayah ini teridentifikasi rawan banjir.'}</p>
+              <p><strong>Koordinat:</strong> ${coordText}</p>
+              <button class="btn-detail" onclick="onPopupDetail('${title}', '${feature.properties.tingkat || 'Darurat'}')">
+                Lihat Detail
+              </button>
+            </div>
+          `;
               marker.bindPopup(popupHTML);
 
+              // Event listeners
               marker.on('click', (e) => {
                 const iconInner = e.target._icon.querySelector('.marker-bounce-inner');
                 if (iconInner) {
@@ -187,16 +203,16 @@
                 marker.openPopup();
                 setInfo(`<strong>${title}</strong><br>Koordinat: ${coordText}`);
               });
-
               marker.on('mouseover', (e) => {
-                e.target._icon.querySelector('img').style.transform = 'scale(1.25)';
+                const img = e.target._icon.querySelector('img');
+                if (img) img.style.transform = 'scale(1.25)';
                 setInfo(`<strong>${title}</strong><br>Koordinat: ${coordText}`);
               });
               marker.on('mouseout', (e) => {
-                e.target._icon.querySelector('img').style.transform = '';
+                const img = e.target._icon.querySelector('img');
+                if (img) img.style.transform = '';
                 setInfo('<em>Hover atau klik marker untuk melihat detail.</em>');
               });
-
               marker.on('dragend', (e) => {
                 const pos = e.target.getLatLng();
                 setInfo(`<strong>${title}</strong><br>Pindah ke: ${pos.lat.toFixed(6)}, ${pos.lng.toFixed(6)}`);
@@ -205,23 +221,27 @@
               return marker;
             },
           }).addTo(markerLayer);
-        });
+        })
+        .catch(handleError);
 
-      // Polyline layer
+      // Polyline layer (Nama file sudah benar 'polyline.geojson')
       fetch('polyline.geojson')
-        .then((res) => res.json())
+        .then((res) => checkFetch(res, 'polyline.geojson'))
         .then((data) => {
           L.geoJSON(data, {
-            style: { color: 'blue', weight: 2 },
+            style: { color: 'blue', weight: 4, opacity: 0.7 },
             onEachFeature: (f, layer) => {
-              layer.bindTooltip(f.properties.name || 'Jalur Air');
+              const name = f.properties.name || 'Jalur Air';
+              layer.bindTooltip(name);
+              layer.bindPopup(`<strong>${name}</strong><br>Jalur penting untuk pemantauan banjir`);
             },
           }).addTo(polylineLayer);
-        });
+        })
+        .catch(handleError);
 
       // Polygon layer
       fetch('polygon.geojson')
-        .then((res) => res.json())
+        .then((res) => checkFetch(res, 'polygon.geojson'))
         .then((data) => {
           L.geoJSON(data, {
             style: { color: 'red', fillOpacity: 0.3 },
@@ -229,13 +249,17 @@
               layer.bindTooltip(f.properties.name || 'Area Banjir');
             },
           }).addTo(polygonLayer);
-        });
+        })
+        .catch(handleError);
 
-      // Area Rawan Banjir
+      // Area Rawan Banjir (map.geojson)
       fetch('map.geojson')
-        .then((res) => res.json())
+        .then((res) => checkFetch(res, 'map.geojson'))
         .then((data) => {
           L.geoJSON(data, {
+            filter: (feature) => {
+              return feature.geometry.type !== 'Point';
+            },
             style: (f) => {
               let warna = 'yellow';
               if (f.properties.tingkat === 'tinggi') warna = 'red';
@@ -247,8 +271,10 @@
               layer.bindTooltip(f.properties.name || 'Area Rawan Banjir');
             },
           }).addTo(banjirLayer);
-        });
+        })
+        .catch(handleError);
 
+      // Control layers
       const baseMaps = { OpenStreetMap: osm, Satellite: satellite };
       const overlayMaps = {
         Markers: markerLayer,

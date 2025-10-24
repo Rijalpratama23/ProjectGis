@@ -4,232 +4,73 @@
     {
       "type": "Feature",
       "properties": {
-        "name": "Pemukiman Warga Kali Anyar"
+        "name": "Pemukiman Warga Kali Anyar",
+        "tingkat": "Tinggi",
+        "deskripsi": "Pemukiman padat penduduk di daerah rawan banjir"
       },
       "geometry": {
-        "coordinates": [
-          106.79808154247416,
-          -6.156730766483946
-        ],
+        "coordinates": [106.79808154247416, -6.156730766483946],
         "type": "Point"
-      },
-      "id": 0
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Balai Pertemuan RW 03 Kali Anyar V"
-      },
-      "geometry": {
-        "coordinates": [
-          106.79788028011603,
-          -6.157392645714637
-        ],
-        "type": "Point"
-      },
-      "id": 1
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "Sungai Kali Anyar"
-      },
-      "geometry": {
-        "coordinates": [
-          106.79625880086633,
-          -6.156737738401304
-        ],
-        "type": "Point"
-      },
-      "id": 2
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "jalanan umum"
-      },
-      "geometry": {
-        "coordinates": [
-          106.79583726758511,
-          -6.157292449163549
-        ],
-        "type": "Point"
-      },
-      "id": 3
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "name": "alfamart"
-      },
-      "geometry": {
-        "coordinates": [
-          106.7954653743405,
-          -6.156617320922479
-        ],
-        "type": "Point"
-      },
-      "id": 4
-    },
-    {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "coordinates": [
-          [
-            106.7954638264664,
-            -6.156614129104611
-          ],
-          [
-            106.79583837149437,
-            -6.157290627769953
-          ],
-          [
-            106.79625973585462,
-            -6.156725844202612
-          ]
-        ],
-        "type": "LineString"
       }
     },
     {
       "type": "Feature",
       "properties": {
-        "name": "perumahan warga"
+        "name": "Balai Pertemuan RW 03 Kali Anyar V",
+        "tingkat": "Sedang",
+        "deskripsi": "Balai pertemuan warga yang juga berfungsi sebagai posko banjir"
       },
       "geometry": {
-        "coordinates": [
-          106.79718061432357,
-          -6.156242196502973
-        ],
+        "coordinates": [106.79788028011603, -6.157392645714637],
         "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Sungai Kali Anyar",
+        "tingkat": "Tinggi",
+        "deskripsi": "Sungai yang sering meluap saat hujan deras"
       },
-      "id": 6
-    },
-    {
-      "type": "Feature",
-      "properties": {},
       "geometry": {
-        "coordinates": [
-          [
-            106.79547802571278,
-            -6.156573709485471
-          ],
-          [
-            106.79717766569883,
-            -6.156230461158529
-          ],
-          [
-            106.79808185929244,
-            -6.156727518545765
-          ],
-          [
-            106.7978812080475,
-            -6.157396411546941
-          ],
-          [
-            106.79625047735766,
-            -6.156718354596421
-          ],
-          [
-            106.79625047735766,
-            -6.156667788728257
-          ]
-        ],
-        "type": "LineString"
+        "coordinates": [106.79625880086633, -6.156737738401304],
+        "type": "Point"
       }
     },
     {
       "type": "Feature",
-      "properties": {},
+      "properties": {
+        "name": "Jalanan Umum",
+        "tingkat": "Sedang",
+        "deskripsi": "Jalan utama yang sering tergenang air"
+      },
       "geometry": {
-        "coordinates": [
-          [
-            [
-              106.7970198180978,
-              -6.156102365037626
-            ],
-            [
-              106.7970198180978,
-              -6.156313954463755
-            ],
-            [
-              106.79769187081536,
-              -6.156313954463755
-            ],
-            [
-              106.79769187081536,
-              -6.156102365037626
-            ],
-            [
-              106.7970198180978,
-              -6.156102365037626
-            ]
-          ]
-        ],
-        "type": "Polygon"
+        "coordinates": [106.79583726758511, -6.157292449163549],
+        "type": "Point"
       }
     },
     {
       "type": "Feature",
-      "properties": {},
+      "properties": {
+        "name": "Alfamart",
+        "tingkat": "Rendah",
+        "deskripsi": "Minimarket di daerah rawan banjir"
+      },
       "geometry": {
-        "coordinates": [
-          [
-            [
-              106.79578815215689,
-              -6.157183236992978
-            ],
-            [
-              106.79540732228412,
-              -6.157183236992978
-            ],
-            [
-              106.79540732228412,
-              -6.157578574258864
-            ],
-            [
-              106.79578815215689,
-              -6.157578574258864
-            ],
-            [
-              106.79578815215689,
-              -6.157183236992978
-            ]
-          ]
-        ],
-        "type": "Polygon"
+        "coordinates": [106.7954653743405, -6.156617320922479],
+        "type": "Point"
       }
     },
     {
       "type": "Feature",
-      "properties": {},
+      "properties": {
+        "name": "Perumahan Warga",
+        "tingkat": "Tinggi",
+        "deskripsi": "Kawasan perumahan yang sering terkena dampak banjir"
+      },
       "geometry": {
-        "coordinates": [
-          [
-            [
-              106.79515048873412,
-              -6.156382607276782
-            ],
-            [
-              106.79515048873412,
-              -6.156789081412612
-            ],
-            [
-              106.79572173354325,
-              -6.156789081412612
-            ],
-            [
-              106.79572173354325,
-              -6.156382607276782
-            ],
-            [
-              106.79515048873412,
-              -6.156382607276782
-            ]
-          ]
-        ],
-        "type": "Polygon"
+        "coordinates": [106.79718061432357, -6.156242196502973],
+        "type": "Point"
       }
     }
   ]
