@@ -224,14 +224,22 @@
         })
         .catch(handleError);
 
-      // Polyline layer (Nama file sudah benar 'polyline.geojson')
-      fetch('polyline.geojson')
-        .then((res) => checkFetch(res, 'polyline.geojson'))
+      fetch('polyline_fixed_v3.geojson')
+        .then((res) => checkFetch(res, 'polyline_fixed_v3.geojson'))
         .then((data) => {
+          data.features.forEach((f) => {
+            if (f.geometry.type === 'LineString') {
+              f.geometry.coordinates = f.geometry.coordinates.map((c) => {
+                // pastikan urutan [lng, lat]
+                return c[0] < c[1] ? [c[1], c[0]] : c;
+              });
+            }
+          });
+
           L.geoJSON(data, {
             style: { color: 'blue', weight: 4, opacity: 0.7 },
             onEachFeature: (f, layer) => {
-              const name = f.properties.name || 'Jalur Air';
+              const name = f.properties.name || 'Polyline';
               layer.bindTooltip(name);
               layer.bindPopup(`<strong>${name}</strong><br>Jalur penting untuk pemantauan banjir`);
             },
@@ -240,8 +248,8 @@
         .catch(handleError);
 
       // Polygon layer
-      fetch('polygon.geojson')
-        .then((res) => checkFetch(res, 'polygon.geojson'))
+      fetch('polygon_fixed.geojson')
+        .then((res) => checkFetch(res, 'polygon_fixed.geojson'))
         .then((data) => {
           L.geoJSON(data, {
             style: { color: 'red', fillOpacity: 0.3 },

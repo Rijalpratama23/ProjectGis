@@ -1,0 +1,48 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Jalur Posko Evakuasi"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [106.79809752911746, -6.15673070104144],
+          [106.79788357215045, -6.157392505254137]
+        ]
+      },
+      "id": 0
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Jarak sumber air dengan posko evakuasi"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [106.79625512189921, -6.156695247221123],
+          [106.79787564781759, -6.157400383870623]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Daerah Rawan Banjir"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [106.79809187726698, -6.156732444056686],
+          [106.79713619610845, -6.156224394258004],
+          [106.79543937446351, -6.1566238533004025],
+          [106.79584505136171, -6.157298666922301],
+          [106.79625852974016, -6.156693661646486]
+        ]
+      }
+    }
+  ]
+}
