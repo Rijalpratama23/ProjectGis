@@ -6,10 +6,12 @@
     <title>Map Rawan Banjir - Fix Popup Stay on Marker</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <!-- link font -->
+
+    <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet" />
+
     <style>
       body {
         font-family: 'Roboto', sans-serif;
@@ -19,7 +21,6 @@
       }
       h1 {
         text-align: center;
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
         font-size: 30px;
         padding: 10px;
         font-weight: bold;
@@ -30,9 +31,6 @@
         border: 1px solid #ccc;
         border-radius: 5px;
       }
-      .title {
-        background-color: #1e90ff;
-      }
       #info {
         position: absolute;
         top: 15px;
@@ -40,15 +38,15 @@
         background: rgba(255, 255, 255, 0.95);
         padding: 10px;
         border-radius: 6px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
         width: 260px;
         max-height: 70vh;
         overflow: auto;
         z-index: 999;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
       }
+
       .popup-container {
         font-size: 14px;
-        line-height: 1.5;
       }
       .popup-image {
         width: 100%;
@@ -57,7 +55,6 @@
         margin-bottom: 6px;
       }
       .btn-detail {
-        display: inline-block;
         padding: 6px 10px;
         background: #1e90ff;
         color: #fff;
@@ -67,7 +64,7 @@
         cursor: pointer;
       }
 
-      /* ===== Bounce di elemen internal ===== */
+      /* Bounce animation */
       .marker-bounce-inner {
         display: inline-block;
         transition: transform 0.2s ease;
@@ -75,34 +72,21 @@
       .marker-bounce-inner.bouncing {
         animation: bounce 0.6s ease-in-out;
       }
-
       @keyframes bounce {
-        0% {
-          transform: translateY(0);
-        }
-        25% {
-          transform: translateY(-15px);
-        }
-        50% {
-          transform: translateY(0);
-        }
-        75% {
-          transform: translateY(-8px);
-        }
-        100% {
-          transform: translateY(0);
-        }
+        0% { transform: translateY(0); }
+        25% { transform: translateY(-15px); }
+        50% { transform: translateY(0); }
+        75% { transform: translateY(-8px); }
+        100% { transform: translateY(0); }
       }
     </style>
+
   </head>
   <body>
-    <div class="title">
-      <h1>
-        Map Rawan Banjir Kota Jakarta Barat <br />
-        Daerah Kali Anyar
-      </h1>
-    </div>
+    <h1>Map Rawan Banjir Kabupaten Sukabumi<br />Daerah Cisolok</h1>
+
     <div id="map"></div>
+
     <div id="info">
       <strong>Detail:</strong>
       <div id="info-content">
@@ -111,9 +95,12 @@
     </div>
 
     <script>
-      const map = L.map('map').setView([-6.156, 106.798], 18);
+      /* ===============================
+          SETVIEW FIX → koordinat baru
+         =============================== */
+      const map = L.map('map').setView([-6.946340, 106.448544], 18);
 
-      // fitur tampilkan koordinat
+      // Click show coordinate
       map.on('click', function (e) {
         const { lat, lng } = e.latlng;
         L.popup()
@@ -122,20 +109,24 @@
           .openOn(map);
       });
 
+      // Base Maps
       const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '© OpenStreetMap',
       }).addTo(map);
 
-      const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19, attribution: 'Tiles © Esri' });
+      const satellite = L.tileLayer(
+        'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+        { maxZoom: 19, attribution: 'Tiles © Esri' }
+      );
 
-      // Layer groups
+      // Layers
       const markerLayer = L.layerGroup().addTo(map);
       const polylineLayer = L.layerGroup();
       const polygonLayer = L.layerGroup();
       const banjirLayer = L.layerGroup();
 
-      // Custom DivIcon
+      // Custom Icon
       const iconFlood = L.divIcon({
         className: '',
         html: `<div class="marker-bounce-inner"><img src="asset/banjir.png" width="36" height="36"/></div>`,
@@ -148,151 +139,136 @@
         document.getElementById('info-content').innerHTML = html;
       }
 
-      // FIX: Tombol "Lihat Detail"
       window.onPopupDetail = function (name, tingkat) {
         setInfo(`<strong>${name}</strong><br>Tingkat Kerawanan: ${tingkat}`);
         alert('Menampilkan detail untuk: ' + name);
       };
 
-      // --- Fungsi Cek Error Fetch ---
+      /* ===============================
+          Error Handling Fetch
+      =============================== */
       function checkFetch(response, fileName) {
-        if (!response.ok) {
-          // Error 404 (Not Found) atau 500 (Server Error)
-          throw new Error(`Gagal memuat ${fileName} (Error: ${response.status})`);
-        }
+        if (!response.ok) throw new Error(`Gagal memuat ${fileName} (Error: ${response.status})`);
         return response.json();
       }
       function handleError(error) {
         console.error(error);
-        // Tampilkan error di Info Box
-        setInfo(`<span style="color: red;">${error.message}. Cek Console (F12) & pastikan file ada.</span>`);
+        setInfo(`<span style="color: red;">${error.message}</span>`);
       }
 
-      // Load marker.geojson
+      /* ===============================
+          Load marker.geojson
+      =============================== */
       fetch('marker.geojson')
-        .then((res) => checkFetch(res, 'marker.geojson'))
-        .then((data) => {
+        .then(res => checkFetch(res, 'marker.geojson'))
+        .then(data => {
           L.geoJSON(data, {
             pointToLayer: (feature, latlng) => {
               const marker = L.marker(latlng, { icon: iconFlood, draggable: true });
-              const title = feature.properties.name || 'Keterangan';
+
+              const title = feature.properties.name;
               const coordText = `${latlng.lat.toFixed(6)}, ${latlng.lng.toFixed(6)}`;
+
               marker.bindTooltip(`${title} (${coordText})`, { direction: 'top', sticky: true });
 
               const popupHTML = `
-            <div class="popup-container">
-              <img src="asset/flood.jpg" class="popup-image" onerror="this.style.display='none'"/>
-              <h4>${title}</h4>
-              <p><strong>Tingkat Kerawanan:</strong> ${feature.properties.tingkat || 'Darurat'}</p>
-              <p><strong>Deskripsi:</strong> ${feature.properties.deskripsi || 'Wilayah ini teridentifikasi rawan banjir.'}</p>
-              <p><strong>Koordinat:</strong> ${coordText}</p>
-              <button class="btn-detail" onclick="onPopupDetail('${title}', '${feature.properties.tingkat || 'Darurat'}')">
-                Lihat Detail
-              </button>
-            </div>
-          `;
+                <div class="popup-container">
+                  <img src="asset/flood.jpg" class="popup-image" onerror="this.style.display='none'"/>
+                  <h4>${title}</h4>
+                  <p><strong>Tingkat:</strong> ${feature.properties.tingkat}</p>
+                  <p><strong>Koordinat:</strong> ${coordText}</p>
+                  <button class="btn-detail" onclick="onPopupDetail('${title}', '${feature.properties.tingkat}')">
+                    Lihat Detail
+                  </button>
+                </div>
+              `;
               marker.bindPopup(popupHTML);
 
-              // Event listeners
-              marker.on('click', (e) => {
+              // Events
+              marker.on('click', e => {
                 const iconInner = e.target._icon.querySelector('.marker-bounce-inner');
-                if (iconInner) {
-                  iconInner.classList.add('bouncing');
-                  setTimeout(() => iconInner.classList.remove('bouncing'), 600);
-                }
+                iconInner.classList.add('bouncing');
+                setTimeout(() => iconInner.classList.remove('bouncing'), 600);
+
                 marker.openPopup();
                 setInfo(`<strong>${title}</strong><br>Koordinat: ${coordText}`);
               });
-              marker.on('mouseover', (e) => {
+
+              marker.on('mouseover', e => {
                 const img = e.target._icon.querySelector('img');
-                if (img) img.style.transform = 'scale(1.25)';
+                img.style.transform = 'scale(1.25)';
                 setInfo(`<strong>${title}</strong><br>Koordinat: ${coordText}`);
               });
-              marker.on('mouseout', (e) => {
+
+              marker.on('mouseout', e => {
                 const img = e.target._icon.querySelector('img');
-                if (img) img.style.transform = '';
+                img.style.transform = '';
                 setInfo('<em>Hover atau klik marker untuk melihat detail.</em>');
               });
-              marker.on('dragend', (e) => {
+
+              marker.on('dragend', e => {
                 const pos = e.target.getLatLng();
                 setInfo(`<strong>${title}</strong><br>Pindah ke: ${pos.lat.toFixed(6)}, ${pos.lng.toFixed(6)}`);
               });
 
               return marker;
-            },
+            }
           }).addTo(markerLayer);
         })
         .catch(handleError);
 
+      /* ===============================
+          Polyline
+      =============================== */
       fetch('polyline_fixed_v3.geojson')
-        .then((res) => checkFetch(res, 'polyline_fixed_v3.geojson'))
-        .then((data) => {
-          data.features.forEach((f) => {
-            if (f.geometry.type === 'LineString') {
-              f.geometry.coordinates = f.geometry.coordinates.map((c) => {
-                // pastikan urutan [lng, lat]
-                return c[0] < c[1] ? [c[1], c[0]] : c;
-              });
-            }
-          });
-
+        .then(res => checkFetch(res, 'polyline_fixed_v3.geojson'))
+        .then(data => {
           L.geoJSON(data, {
-            style: { color: 'blue', weight: 4, opacity: 0.7 },
-            onEachFeature: (f, layer) => {
-              const name = f.properties.name || 'Polyline';
-              layer.bindTooltip(name);
-              layer.bindPopup(`<strong>${name}</strong><br>Jalur penting untuk pemantauan banjir`);
-            },
+            style: { color: 'blue', weight: 4, opacity: 0.7 }
           }).addTo(polylineLayer);
         })
         .catch(handleError);
 
-      // Polygon layer
+      /* ===============================
+          Polygon
+      =============================== */
       fetch('polygon_fixed.geojson')
-        .then((res) => checkFetch(res, 'polygon_fixed.geojson'))
-        .then((data) => {
+        .then(res => checkFetch(res, 'polygon_fixed.geojson'))
+        .then(data => {
           L.geoJSON(data, {
-            style: { color: 'red', fillOpacity: 0.3 },
-            onEachFeature: (f, layer) => {
-              layer.bindTooltip(f.properties.name || 'Area Banjir');
-            },
+            style: { color: 'red', fillOpacity: 0.3 }
           }).addTo(polygonLayer);
         })
         .catch(handleError);
 
-      // Area Rawan Banjir (map.geojson)
+      /* ===============================
+          Area Rawan Banjir (map.geojson)
+      =============================== */
       fetch('map.geojson')
-        .then((res) => checkFetch(res, 'map.geojson'))
-        .then((data) => {
+        .then(res => checkFetch(res, 'map.geojson'))
+        .then(data => {
           L.geoJSON(data, {
-            filter: (feature) => {
-              return feature.geometry.type !== 'Point';
-            },
-            style: (f) => {
+            style: f => {
               let warna = 'yellow';
               if (f.properties.tingkat === 'tinggi') warna = 'red';
               else if (f.properties.tingkat === 'sedang') warna = 'orange';
               else if (f.properties.tingkat === 'rendah') warna = 'green';
               return { color: warna, weight: 2, opacity: 0.8, fillOpacity: 0.4 };
-            },
-            onEachFeature: (f, layer) => {
-              layer.bindTooltip(f.properties.name || 'Area Rawan Banjir');
-            },
+            }
           }).addTo(banjirLayer);
         })
         .catch(handleError);
 
-      // Control layers
-      const baseMaps = { OpenStreetMap: osm, Satellite: satellite };
-      const overlayMaps = {
-        Markers: markerLayer,
-        Polyline: polylineLayer,
-        Polygon: polygonLayer,
-        'Area Rawan Banjir': banjirLayer,
-      };
-      L.control.layers(baseMaps, overlayMaps).addTo(map);
+      /* ===============================
+          Layer Control
+      =============================== */
+      L.control.layers(
+        { OpenStreetMap: osm, Satellite: satellite },
+        { Markers: markerLayer, Polyline: polylineLayer, Polygon: polygonLayer, "Area Rawan Banjir": banjirLayer }
+      ).addTo(map);
 
       banjirLayer.addTo(map);
     </script>
+
   </body>
 </html>

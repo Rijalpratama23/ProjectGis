@@ -1,0 +1,145 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "name": "Perbatasan Daerah Cisolok", "history": "Ini merupakan Batas wilayah bagian Timur" },
+      "geometry": { "coordinates": [106.46468421379399, -6.936205644495786], "type": "Point" },
+      "id": 0
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Perbatasan Desa Cisolok", "history": "Ini merupakan Batas wilayah bagian Selatan" },
+      "geometry": { "coordinates": [106.46976277032445, -6.959552074396925], "type": "Point" },
+      "id": 1
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Batas Desa Cisolok", "history": "Ini merupakan Batas wilayah bagian Barat" },
+      "geometry": { "coordinates": [106.4342207567937, -6.917426070534987], "type": "Point" },
+      "id": 2
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Perbatasan Daerah Cisolok", "history": "Ini merupakan Batas wilayah bagian Utara" },
+      "geometry": { "coordinates": [106.44811094255817, -6.946866733891483], "type": "Point" },
+      "id": 3
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Perbatasan Daerah Cisolok" },
+      "geometry": {
+        "coordinates": [
+          [106.46449575346509, -6.936069073877022],
+          [106.4698403262525, -6.9594884925383695],
+          [106.44848694897053, -6.9468648023694755],
+          [106.43457645196952, -6.917282744177172],
+          [106.4647195021177, -6.936159287942843]
+        ],
+        "type": "LineString"
+      },
+      "id": 4
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Area Rawan Banjir",
+        "status": "Sangat Rawan",
+        "history": "Banjir bandang Tahun 2025 setinggi 1.5 meter, merendam hampir 30 rumah warga.",
+        "image": "assets/banjir.jpg"
+      },
+      "geometry": { "coordinates": [106.44793933768273, -6.945543558159329], "type": "Point" },
+      "id": 5
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Daerah Rawan Banjir",
+        "status": "Sangat Rawan",
+        "history": "Terjadi banjir bandang pada Tanggal 27 oktober 2025 setinggi 1.5 meter, merendam hampir 30 rumah warga.",
+        "image": "assets/banjir2.webp"
+      },
+      "geometry": {
+        "coordinates": [
+          [
+            [106.44539519111959, -6.944235443595701],
+            [106.44539519111959, -6.9475453170353205],
+            [106.44862387544538, -6.9475453170353205],
+            [106.44862387544538, -6.944235443595701],
+            [106.44539519111959, -6.944235443595701]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "id": 6
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Pos Evakuasi",
+        "status": "Pos Evakuasi",
+        "history": "Ini merupakan Post evakuasi yang ada di daerah ci solok, semua korban biasanya di evakuasi ke posko ini.",
+        "image": "assets/evakuasii.jpg"
+      },
+      "geometry": { "coordinates": [106.44875393715444, -6.949144658604098], "type": "Point" },
+      "id": 7
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Pos Evakuasi",
+        "status": "Pos Evakuasi",
+        "history": "Ini merupakan Post evakuasi yang ada di daerah ci solok, semua korban biasanya di evakuasi ke posko ini.",
+        "image": "assets/evakuasii.jpg"
+      },
+      "geometry": {
+        "coordinates": [
+          [
+            [106.44866893454645, -6.949072030442238],
+            [106.44866893454645, -6.949238520199842],
+            [106.44882565825031, -6.949238520199842],
+            [106.44882565825031, -6.949072030442238],
+            [106.44866893454645, -6.949072030442238]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "id": 8
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Jalur Sungai",
+        "status": "Arus sungai Sedang pasang",
+        "history": "meluap pada tahun 2025 dan menyebabkan banjir bandang",
+        "image": "assets/sungai.jpg"
+      },
+      "geometry": {
+        "coordinates": [
+          [106.45714644398737, -6.931550938791489],
+          [106.45625229996921, -6.932008558794564],
+          [106.45579323228111, -6.932883146752175],
+          [106.45538294989535, -6.933204368794506],
+          [106.45476056752733, -6.933127994215255],
+          [106.4535481151791, -6.93413786540799],
+          [106.45331426245934, -6.934496718217545],
+          [106.45256519667282, -6.93471044276194],
+          [106.45263333773147, -6.935084379206501],
+          [106.44912378341121, -6.937556327277747],
+          [106.44921128022617, -6.938857553650976],
+          [106.44910507187427, -6.939807391290444],
+          [106.44889601309671, -6.940904418152158],
+          [106.44861321671169, -6.942965246468958],
+          [106.44914330829812, -6.945107836689289],
+          [106.4491972150584, -6.94666261415189],
+          [106.4489990326507, -6.947381411490795],
+          [106.445798029603, -6.949411729808034],
+          [106.44474553400408, -6.952175116227465],
+          [106.44514902078481, -6.953142210757207]
+        ],
+        "type": "LineString"
+      },
+      "id": 9
+    }
+  ]
+}
