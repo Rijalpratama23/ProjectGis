@@ -7,7 +7,6 @@
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/@turf/turf/turf.min.js"></script>
 
     <style>
@@ -44,8 +43,8 @@
       /* Legenda */
       .info-legend {
         font-size: 12px;
-        background: rgba(255,255,255,0.9);
-        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
         border-radius: 5px;
         position: absolute;
         bottom: 30px;
@@ -55,58 +54,76 @@
         padding: 15px;
       }
       .legend-item {
-        display: flex; 
-        align-items: center; 
+        display: flex;
+        align-items: center;
         margin-bottom: 8px;
       }
       .circle-color {
-        width: 15px; 
-        height: 15px; 
-        border-radius: 50%; 
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
         margin-right: 8px;
         opacity: 0.7;
       }
-      /* Style untuk Info Cuaca (Floating Widget) */
+
+      /* --- UPDATE CSS WIDGET CUACA --- */
       .weather-widget {
         background: white;
         border: 2px solid #3498db;
-        border-radius: 10px;
+        border-radius: 12px;
         padding: 10px;
         text-align: center;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         font-family: Arial, sans-serif;
-        min-width: 120px;
+        min-width: 130px;
+        position: relative;
+      }
+      /* Segitiga kecil di bawah widget */
+      .weather-widget::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-width: 8px 8px 0;
+        border-style: solid;
+        border-color: inherit transparent transparent transparent;
       }
       .weather-value {
-        font-size: 18px;
-        font-weight: bold;
-        color: #2980b9;
+        font-size: 20px;
+        font-weight: 800;
+        margin: 4px 0;
       }
       .weather-label {
-        font-size: 11px;
+        font-size: 10px;
         color: #7f8c8d;
+        text-transform: uppercase;
+        letter-spacing: 1px;
       }
     </style>
   </head>
 
   <body>
-    <h1>Map Rawan Banjir Daerah Cisolok <br> Kabupaten Sukabumi Provinsi Jawa Barat</h1>
+    <h1>
+      Map Rawan Banjir Daerah Cisolok <br />
+      Kabupaten Sukabumi Provinsi Jawa Barat
+    </h1>
     <div id="map"></div>
-    
+
     <div class="info-legend">
-        <h4 style="margin: 0 0 15px 0;">Zona Risiko Banjir</h4>
-        <div class="legend-item">
-            <div class="circle-color" style="background: red; border: 1px solid darkred;"></div>
-            <span>Bahaya (0 - 200m)</span>
-        </div>
-        <div class="legend-item">
-            <div class="circle-color" style="background: orange; border: 1px solid darkorange;"></div>
-            <span>Waspada (200 - 500m)</span>
-        </div>
-        <div class="legend-item">
-            <div class="circle-color" style="background: green; border: 1px solid darkgreen;"></div>
-            <span>Aman (500m - 1km)</span>
-        </div>
+      <h4 style="margin: 0 0 15px 0">Zona Risiko Banjir</h4>
+      <div class="legend-item">
+        <div class="circle-color" style="background: red; border: 1px solid darkred"></div>
+        <span>Bahaya (0 - 200m)</span>
+      </div>
+      <div class="legend-item">
+        <div class="circle-color" style="background: orange; border: 1px solid darkorange"></div>
+        <span>Waspada (200 - 500m)</span>
+      </div>
+      <div class="legend-item">
+        <div class="circle-color" style="background: green; border: 1px solid darkgreen"></div>
+        <span>Aman (500m - 1km)</span>
+      </div>
     </div>
 
     <script>
@@ -132,7 +149,7 @@
       var floodPointsLayer = L.layerGroup().addTo(map);
       var bufferLayer = L.layerGroup().addTo(map);
       // --- LAYER BARU UNTUK CUACA ---
-      var weatherLayer = L.layerGroup().addTo(map); 
+      var weatherLayer = L.layerGroup().addTo(map);
 
       // === ICONS ===
       const iconBanjir = L.icon({
@@ -157,81 +174,113 @@
       });
 
       // ============================================================
-      //  INTEGRASI API CUACA / CURAH HUJAN
+      //  INTEGRASI API CUACA (REAL-TIME & SMART LOGIC) - UPDATED
       // ============================================================
-      // Kita ambil titik tengah map untuk data cuaca
       const latCisolok = -6.94634;
       const lngCisolok = 106.448544;
+      let weatherMarker = null; // Variabel global untuk menyimpan marker cuaca
 
-      // URL API (Ganti URL ini dengan API milikmu jika sudah ada)
-      // Contoh ini menggunakan Open-Meteo (Gratis)
-      const weatherAPIUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latCisolok}&longitude=${lngCisolok}&current=rain,showers,weather_code&timezone=Asia%2FJakarta`;
+      // Fungsi mengambil data (dijalankan berulang)
+      function getRealtimeWeather() {
+        const weatherAPIUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latCisolok}&longitude=${lngCisolok}&current=rain,showers,weather_code&timezone=Asia%2FJakarta&time=${new Date().getTime()}`;
 
-      fetch(weatherAPIUrl)
-        .then(response => response.json())
-        .then(data => {
-            // Ambil data curah hujan (rain) dari JSON
-            // Sesuaikan 'data.current.rain' dengan struktur JSON API kamu
-            const rainAmount = data.current.rain; 
-            const unit = data.current_units.rain; 
-            
-            // Logika Status
-            let statusCuaca = "Cerah/Berawan";
-            let statusColor = "green";
-            
-            if (rainAmount > 0 && rainAmount < 5) {
-                statusCuaca = "Hujan Ringan";
-                statusColor = "orange";
-            } else if (rainAmount >= 5) {
-                statusCuaca = "HUJAN LEBAT";
-                statusColor = "red";
+        fetch(weatherAPIUrl)
+          .then((response) => response.json())
+          .then((data) => {
+            const rain = data.current.rain || 0;
+            const showers = data.current.showers || 0;
+            const rainAmount = rain + showers;
+            const weatherCode = data.current.weather_code;
+            const unit = data.current_units.rain;
+
+            const now = new Date();
+            const timeString = now.getHours() + ':' + String(now.getMinutes()).padStart(2, '0');
+
+            // --- LOGIKA BARU YANG LEBIH CERDAS ---
+            let statusCuaca = 'Cerah';
+            let statusColor = '#27ae60'; // Hijau (Aman)
+            let borderColor = '#27ae60';
+
+            // 1. Cek Hujan Terlebih Dahulu
+            if (rainAmount > 0 && rainAmount < 2) {
+              statusCuaca = 'Hujan Ringan';
+              statusColor = '#f39c12';
+              borderColor = '#f39c12';
+            } else if (rainAmount >= 2) {
+              statusCuaca = 'HUJAN LEBAT';
+              statusColor = '#c0392b';
+              borderColor = '#c0392b';
+            } else {
+              if (weatherCode === 3) {
+                statusCuaca = 'Mendung / Berawan';
+                statusColor = '#7f8c8d';
+                borderColor = '#7f8c8d';
+              } else if (weatherCode === 1 || weatherCode === 2) {
+                statusCuaca = 'Cerah Berawan';
+              }
             }
 
-            // Membuat Custom Icon HTML (Kotak Info)
+            // Membuat Widget HTML
             const weatherIcon = L.divIcon({
-                className: 'weather-widget-icon',
-                html: `
-                    <div class="weather-widget" style="border-color: ${statusColor}">
-                        <div class="weather-label">Status Cuaca (Live)</div>
-                        <div class="weather-value" style="color: ${statusColor}">${rainAmount} ${unit}</div>
-                        <div style="font-size:12px; margin-top:2px;">${statusCuaca}</div>
-                    </div>
-                `,
-                iconSize: [120, 80],
-                iconAnchor: [60, 100] // Posisi agar melayang di atas titik
+              className: 'weather-widget-icon',
+              html: `
+                        <div class="weather-widget" style="border-color: ${borderColor}">
+                            <div class="weather-label">Status Cuaca (Live)</div>
+                            <div class="weather-value" style="color: ${statusColor}">${rainAmount} ${unit}</div>
+                            <div style="font-size:12px; font-weight:bold; margin-bottom:4px;">${statusCuaca}</div>
+                            <div style="font-size:9px; color:#aaa;">Update: ${timeString}</div>
+                        </div>
+                    `,
+              iconSize: [140, 100],
+              iconAnchor: [70, 115], // Posisi melayang di atas marker
             });
 
-            // Tambahkan Marker Cuaca ke Layer weatherLayer
-            L.marker([latCisolok, lngCisolok], { icon: weatherIcon, zIndexOffset: 1000 }).addTo(weatherLayer);
-        })
-        .catch(error => {
-            console.error("Gagal mengambil data cuaca:", error);
-        });
-      // ============================================================
+            // Hapus marker lama sebelum menambah yang baru (agar tidak menumpuk)
+            if (weatherMarker) {
+              weatherLayer.removeLayer(weatherMarker);
+            }
 
+            // Tambahkan marker baru
+            weatherMarker = L.marker([latCisolok, lngCisolok], { icon: weatherIcon, zIndexOffset: 1000 }).addTo(weatherLayer);
+            console.log(`Cuaca update ${timeString}: ${rainAmount}mm (Code: ${weatherCode})`);
+          })
+          .catch((error) => {
+            console.error('Gagal update cuaca:', error);
+          });
+      }
+
+      // 1. Jalankan fungsi pertama kali saat web dibuka
+      getRealtimeWeather();
+
+      // 2. Jalankan otomatis setiap 5 Menit (300.000 ms)
+      setInterval(getRealtimeWeather, 300000);
+
+      // ============================================================
 
       // 5. Load GeoJSON
       fetch('map (3).geojson?t=' + new Date().getTime())
         .then((res) => {
-            if (!res.ok) { throw new Error("File GeoJSON tidak ditemukan!"); }
-            return res.json();
+          if (!res.ok) {
+            throw new Error('File GeoJSON tidak ditemukan!');
+          }
+          return res.json();
         })
         .then((data) => {
           L.geoJSON(data, {
             onEachFeature: function (feature, layer) {
               const props = feature.properties;
-              
+
               const name = props.name || 'Lokasi Tanpa Nama';
               const image = props.image || 'https://via.placeholder.com/300x150?text=No+Image';
               const history = props.history || 'Belum ada data histori kejadian tercatat.';
               const status = props.status || 'Normal';
 
-              let statusColor = '#28a745'; 
+              let statusColor = '#28a745';
               const statusLower = status.toLowerCase();
               if (statusLower.includes('merah') || statusLower.includes('sangat rawan') || statusLower.includes('bahaya')) {
-                statusColor = '#dc3545'; 
+                statusColor = '#dc3545';
               } else if (statusLower.includes('waspada') || statusLower.includes('sedang') || statusLower.includes('kadang')) {
-                statusColor = '#ffc107'; 
+                statusColor = '#ffc107';
               }
 
               const popupContent = `
@@ -276,29 +325,40 @@
                 layer.setIcon(selectedIcon);
 
                 if (lowerName.includes('banjir')) {
-                    layer.addTo(floodPointsLayer);
+                  layer.addTo(floodPointsLayer);
 
-                    // Buffer Logic
-                    if (name === "Area Rawan Banjir") {
-                        var pointGeoJSON = turf.point(feature.geometry.coordinates);
-                        
-                        var bufferGreen = turf.buffer(pointGeoJSON, 1.0, {units: 'kilometers'});
-                        L.geoJSON(bufferGreen, {
-                            style: function() { return { color: 'green', weight: 1, fillColor: 'green', fillOpacity: 0.15 }; }
-                        }).bindTooltip("Zona Aman (Radius 1km)").addTo(bufferLayer);
+                  // Buffer Logic
+                  if (name === 'Area Rawan Banjir') {
+                    var pointGeoJSON = turf.point(feature.geometry.coordinates);
 
-                        var bufferYellow = turf.buffer(pointGeoJSON, 0.5, {units: 'kilometers'});
-                        L.geoJSON(bufferYellow, {
-                            style: function() { return { color: 'orange', weight: 1, fillColor: 'orange', fillOpacity: 0.3 }; }
-                        }).bindTooltip("Zona Waspada (Radius 500m)").addTo(bufferLayer);
+                    var bufferGreen = turf.buffer(pointGeoJSON, 1.0, { units: 'kilometers' });
+                    L.geoJSON(bufferGreen, {
+                      style: function () {
+                        return { color: 'green', weight: 1, fillColor: 'green', fillOpacity: 0.15 };
+                      },
+                    })
+                      .bindTooltip('Zona Aman (Radius 1km)')
+                      .addTo(bufferLayer);
 
-                        var bufferRed = turf.buffer(pointGeoJSON, 0.2, {units: 'kilometers'});
-                        L.geoJSON(bufferRed, {
-                            style: function() { return { color: 'red', weight: 1, fillColor: 'red', fillOpacity: 0.4 }; }
-                        }).bindTooltip("ZONA BAHAYA (Radius 200m)").addTo(bufferLayer);
-                    }
-                }
-                else layer.addTo(markersLayer);
+                    var bufferYellow = turf.buffer(pointGeoJSON, 0.5, { units: 'kilometers' });
+                    L.geoJSON(bufferYellow, {
+                      style: function () {
+                        return { color: 'orange', weight: 1, fillColor: 'orange', fillOpacity: 0.3 };
+                      },
+                    })
+                      .bindTooltip('Zona Waspada (Radius 500m)')
+                      .addTo(bufferLayer);
+
+                    var bufferRed = turf.buffer(pointGeoJSON, 0.2, { units: 'kilometers' });
+                    L.geoJSON(bufferRed, {
+                      style: function () {
+                        return { color: 'red', weight: 1, fillColor: 'red', fillOpacity: 0.4 };
+                      },
+                    })
+                      .bindTooltip('ZONA BAHAYA (Radius 200m)')
+                      .addTo(bufferLayer);
+                  }
+                } else layer.addTo(markersLayer);
               }
 
               if (feature.geometry.type === 'LineString') {
@@ -321,7 +381,10 @@
 
               if (feature.geometry.type === 'Polygon') {
                 layer.setStyle({
-                  color: '#e74c3c', fillColor: '#e74c3c', fillOpacity: 0.3, weight: 1,
+                  color: '#e74c3c',
+                  fillColor: '#e74c3c',
+                  fillOpacity: 0.3,
+                  weight: 1,
                 });
                 layer.addTo(polygonLayer);
               }
@@ -329,7 +392,7 @@
           });
         })
         .catch((err) => {
-            console.error('Error:', err);
+          console.error('Error:', err);
         });
 
       var baseMaps = {
@@ -343,7 +406,7 @@
         'Area Polygon': polygonLayer,
         'Titik Rawan Banjir': floodPointsLayer,
         '<span style="font-weight:bold;">Analisis Zona Buffer</span>': bufferLayer,
-        '<span style="color:blue;">Info Curah Hujan (Live)</span>': weatherLayer // LAYER BARU DITAMBAHKAN KE SINI
+        '<span style="color:blue;">Info Curah Hujan (Live)</span>': weatherLayer,
       };
 
       L.control.layers(baseMaps, overlayMaps, { collapsed: true }).addTo(map);
