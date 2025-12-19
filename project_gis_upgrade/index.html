@@ -148,8 +148,9 @@
       var polygonLayer = L.layerGroup().addTo(map);
       var floodPointsLayer = L.layerGroup().addTo(map);
       var bufferLayer = L.layerGroup().addTo(map);
-      // --- LAYER BARU UNTUK CUACA ---
       var weatherLayer = L.layerGroup().addTo(map);
+      // --- LAYER BARU: GEO AI ---
+      var geoAiLayer = L.layerGroup().addTo(map);
 
       // === ICONS ===
       const iconBanjir = L.icon({
@@ -174,13 +175,70 @@
       });
 
       // ============================================================
-      //  INTEGRASI API CUACA (REAL-TIME & SMART LOGIC) - UPDATED
+      //  INTEGRASI API CUACA (REAL-TIME & SMART LOGIC)
       // ============================================================
       const latCisolok = -6.94634;
       const lngCisolok = 106.448544;
-      let weatherMarker = null; // Variabel global untuk menyimpan marker cuaca
+      let weatherMarker = null;
+      let sungaiGeoJson = null; // Variabel untuk menyimpan data sungai
 
-      // Fungsi mengambil data (dijalankan berulang)
+      // Fungsi GeoAI: Update Prediksi Luapan Sungai
+      function updateGeoAIPrediction(rainAmount) {
+        // Hapus prediksi lama
+        geoAiLayer.clearLayers();
+
+        // Cek apakah data sungai sudah ada
+        if (!sungaiGeoJson) {
+          console.log('Menunggu data sungai...');
+          return;
+        }
+
+        // Logic AI Sederhana (Rule-Based)
+        let radiusLuapan = 0; // dalam KM
+        let pesanPrediksi = 'Aman';
+        let colorPrediksi = '#8e44ad'; // Ungu
+
+        if (rainAmount < 0.5) {
+          radiusLuapan = 0.05; // 50 meter (Normal)
+          pesanPrediksi = 'Normal (Luapan Minim)';
+        } else if (rainAmount >= 0.5 && rainAmount < 2.0) {
+          radiusLuapan = 0.3; // 300 meter
+          pesanPrediksi = 'WASPADA (Potensi Luapan Sedang)';
+        } else {
+          radiusLuapan = 0.6; // 600 meter
+          pesanPrediksi = 'BAHAYA (Potensi Banjir Luas)';
+        }
+
+        // Proses Buffer dengan Turf.js
+        var buffered = turf.buffer(sungaiGeoJson, radiusLuapan, { units: 'kilometers' });
+
+        // Tampilkan ke Peta
+        L.geoJSON(buffered, {
+          style: function () {
+            return {
+              color: colorPrediksi,
+              weight: 1,
+              fillColor: colorPrediksi,
+              fillOpacity: 0.2, // Transparan
+              dashArray: '10, 10', // Garis putus-putus
+            };
+          },
+        })
+          .bindPopup(
+            `
+            <div style="font-family:Arial;">
+                <b style="color:purple;">[GeoAI] Simulasi Prediksi Banjir</b><br>
+                Curah Hujan: <b>${rainAmount} mm</b><br>
+                Status: <b>${pesanPrediksi}</b><br>
+                Estimasi Radius Terdampak: ${radiusLuapan * 1000} meter dari sungai.
+            </div>
+        `
+          )
+          .addTo(geoAiLayer);
+
+        console.log(`GeoAI Updated: Radius ${radiusLuapan}km`);
+      }
+
       function getRealtimeWeather() {
         const weatherAPIUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latCisolok}&longitude=${lngCisolok}&current=rain,showers,weather_code&timezone=Asia%2FJakarta&time=${new Date().getTime()}`;
 
@@ -196,12 +254,10 @@
             const now = new Date();
             const timeString = now.getHours() + ':' + String(now.getMinutes()).padStart(2, '0');
 
-            // --- LOGIKA BARU YANG LEBIH CERDAS ---
             let statusCuaca = 'Cerah';
-            let statusColor = '#27ae60'; // Hijau (Aman)
+            let statusColor = '#27ae60';
             let borderColor = '#27ae60';
 
-            // 1. Cek Hujan Terlebih Dahulu
             if (rainAmount > 0 && rainAmount < 2) {
               statusCuaca = 'Hujan Ringan';
               statusColor = '#f39c12';
@@ -220,7 +276,10 @@
               }
             }
 
-            // Membuat Widget HTML
+            // --- TRIGGER GEO AI ---
+            updateGeoAIPrediction(rainAmount);
+            // ----------------------
+
             const weatherIcon = L.divIcon({
               className: 'weather-widget-icon',
               html: `
@@ -232,17 +291,15 @@
                         </div>
                     `,
               iconSize: [140, 100],
-              iconAnchor: [70, 115], // Posisi melayang di atas marker
+              iconAnchor: [70, 115],
             });
 
-            // Hapus marker lama sebelum menambah yang baru (agar tidak menumpuk)
             if (weatherMarker) {
               weatherLayer.removeLayer(weatherMarker);
             }
 
-            // Tambahkan marker baru
             weatherMarker = L.marker([latCisolok, lngCisolok], { icon: weatherIcon, zIndexOffset: 1000 }).addTo(weatherLayer);
-            console.log(`Cuaca update ${timeString}: ${rainAmount}mm (Code: ${weatherCode})`);
+            console.log(`Cuaca update ${timeString}: ${rainAmount}mm`);
           })
           .catch((error) => {
             console.error('Gagal update cuaca:', error);
@@ -373,6 +430,8 @@
                 } else if (lowerName.includes('sungai')) {
                   lineColor = '#3498db';
                   lineWeight = 3;
+                  // --- PERUBAHAN GEO AI: SIMPAN DATA SUNGAI ---
+                  sungaiGeoJson = feature;
                 }
 
                 layer.setStyle({ color: lineColor, weight: lineWeight });
@@ -407,6 +466,7 @@
         'Titik Rawan Banjir': floodPointsLayer,
         '<span style="font-weight:bold;">Analisis Zona Buffer</span>': bufferLayer,
         '<span style="color:blue;">Info Curah Hujan (Live)</span>': weatherLayer,
+        '<span style="color:purple; font-weight:bold;">[GeoAI] Prediksi Luapan</span>': geoAiLayer,
       };
 
       L.control.layers(baseMaps, overlayMaps, { collapsed: true }).addTo(map);
