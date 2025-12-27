@@ -76,6 +76,7 @@
         "coordinates": [106.8363, -7.3064]
       }
     },
+    
     {
       "type": "Feature",
       "properties": {
@@ -109,16 +110,16 @@
     {
       "type": "Feature",
       "properties": {
-        "kecamatan": "Cikakak",
-        "status": "Zona Kuning (Waspada)",
-        "lokasi_spesifik": "Kp. Cihangasa, Desa Sirnarasa",
-        "penyebab": "Rawan longsor disertai banjir lumpur",
-        "keterangan": "Tanah longsor menutup jalan (2024)",
+        "kecamatan": "Cireunghas",
+        "status": "Zona Hijau (Rawan Longsor)",
+        "lokasi_spesifik": "Kaki Gunung Gede Pangrango",
+        "penyebab": "Kemiringan lereng curam",
+        "keterangan": "Waspada pergerakan tanah saat hujan deras",
         "gambar": ""
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [106.5014, -6.9572]
+        "coordinates": [107.0081, -6.9454]
       }
     },
     {
@@ -194,6 +195,416 @@
       "geometry": {
         "type": "Point",
         "coordinates": [106.8788, -7.1086]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kecamatan": "Jampang Tengah",
+        "status": "Zona Hijau (Rawan Longsor)",
+        "lokasi_spesifik": "Pusat Kecamatan Jampang tengah",
+        "penyebab": "Lebih rawan pergerakan tanah",
+        "keterangan": "Daerah dataran tinggi",
+        "gambar": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.78511641914243, -7.07599396489752]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kecamatan": "Kabandungan",
+        "status": "Zona Hijau (Rawan Longsor)",
+        "lokasi_spesifik": "Hulu Sungai",
+        "penyebab": "Wilayah hulu dengan arus deras",
+        "keterangan": "Risiko lebih ke longsor dibanding banjir genangan",
+        "gambar": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.6342, -6.7865]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kecamatan": "Lengkong",
+        "status": "Zona Hijau (Rawan Longsor)",
+        "lokasi_spesifik": "Wilayah Hutan/Kebun Lengkong",
+        "penyebab": "Dataran tinggi dan area resapan",
+        "keterangan": "Potensi banjir rendah",
+        "gambar": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.6845, -7.1268]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kecamatan": "Kabandungan",
+        "status": "Zona Hijau (Rawan Longsor)",
+        "lokasi_spesifik": "Hulu Sungai",
+        "penyebab": "Wilayah hulu dengan arus deras",
+        "keterangan": "Risiko lebih ke longsor dibanding banjir genangan",
+        "gambar": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.6342, -6.7865]
+      }
+    },
+    {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "properties": {
+            "kecamatan": "Ciracap",
+            "status": "Zona Kuning (Waspada)",
+            "lokasi_spesifik": "Wilayah Pesisir Ciracap",
+            "penyebab": "Genangan sesaat dan luapan sungai kecil saat hujan lama",
+            "keterangan": "Potensi banjir limpasan jalan",
+            "gambar": ""
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [106.5097, -7.3371]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "kecamatan": "Waluran",
+            "status": "Zona Kuning (Waspada)",
+            "lokasi_spesifik": "Pusat Kecamatan Waluran",
+            "penyebab": "Curah hujan tinggi dan drainase",
+            "keterangan": "Waspada genangan di area cekungan",
+            "gambar": ""
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [106.554, -7.213]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "kecamatan": "Jampangkulon",
+            "status": "Zona Kuning (Waspada)",
+            "lokasi_spesifik": "Area Pasar/Terminal Jampangkulon",
+            "penyebab": "Banjir limpasan drainase perkotaan",
+            "keterangan": "Pusat aktivitas warga, rawan macet saat genangan",
+            "gambar": ""
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [106.6373, -7.2345]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "kecamatan": "Kalibunder",
+            "status": "Zona Kuning (Waspada)",
+            "lokasi_spesifik": "Bantaran Sungai Cikaso",
+            "penyebab": "Luapan anak sungai",
+            "keterangan": "Akses jalan antar desa sering terdampak",
+            "gambar": ""
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [106.6855, -7.2798]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "kecamatan": "Curugkembar",
+            "status": "Zona Kuning (Waspada)",
+            "lokasi_spesifik": "Area Perbukitan Curugkembar",
+            "penyebab": "Hujan deras durasi lama",
+            "keterangan": "Waspada longsor ringan dan banjir lintasan",
+            "gambar": ""
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [106.853, -7.33]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "kecamatan": "Gegerbitung",
+            "status": "Zona Kuning (Waspada)",
+            "lokasi_spesifik": "Kaki Bukit Gegerbitung",
+            "penyebab": "Risiko campuran banjir dan longsor",
+            "keterangan": "Perlu kewaspadaan ganda (banjir & tanah gerak)",
+            "gambar": ""
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [107.016, -6.9804]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "kecamatan": "Sukalarang",
+            "status": "Zona Kuning (Waspada)",
+            "lokasi_spesifik": "Jalan Protokol Sukalarang",
+            "penyebab": "Banjir limpasan drainase jalan",
+            "keterangan": "Jalur lalu lintas utama Sukabumi-Cianjur",
+            "gambar": ""
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [107.0019, -6.8906]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "kecamatan": "Kadudampit",
+            "status": "Zona Kuning (Waspada)",
+            "lokasi_spesifik": "Kawasan Wisata Situ Gunung",
+            "penyebab": "Limpasan air dari kaki gunung",
+            "keterangan": "Debit air meningkat cepat saat hujan di gunung",
+            "gambar": ""
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [106.9248, -6.8534]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "kecamatan": "Ciambar",
+            "status": "Zona Kuning (Waspada)",
+            "lokasi_spesifik": "Pemukiman Lereng Ciambar",
+            "penyebab": "Drainase buruk dan curah hujan tinggi",
+            "keterangan": "Genangan air di area pemukiman padat",
+            "gambar": ""
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [106.7938, -6.8322]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "kecamatan": "Bojonggenteng",
+            "status": "Zona Kuning (Waspada)",
+            "lokasi_spesifik": "Area Persawahan Bojonggenteng",
+            "penyebab": "Luapan irigasi teknis",
+            "keterangan": "Berdampak pada lahan pertanian",
+            "gambar": ""
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [106.7196, -6.8522]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "kecamatan": "Parakansalak",
+            "status": "Zona Kuning (Waspada)",
+            "lokasi_spesifik": "Perkebunan Teh Parakansalak",
+            "penyebab": "Aliran permukaan deras",
+            "keterangan": "Waspada erosi dan luapan selokan",
+            "gambar": ""
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [106.7088, -6.7901]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "kecamatan": "Kalapanunggal",
+            "status": "Zona Kuning (Waspada)",
+            "lokasi_spesifik": "Pusat Kecamatan Kalapanunggal",
+            "penyebab": "Intensitas hujan tinggi di hulu",
+            "keterangan": "Genangan sesaat di jalan poros kecamatan",
+            "gambar": ""
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [106.6624, -6.7978]
+          }
+        }
+      ]
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kecamatan": "Palabuhanratu",
+        "status": "Zona Merah (Sangat Rawan)",
+        "lokasi_spesifik": "Area Citarik / Jayanti / Pesisir",
+        "penyebab": "Sering terjadi banjir rob dan luapan sungai",
+        "keterangan": "Pusat pemerintahan dan wisata, dampak ekonomi tinggi",
+        "gambar": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.5445, -6.987]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kecamatan": "Cisolok",
+        "status": "Zona Merah (Sangat Rawan)",
+        "lokasi_spesifik": "Bantaran Sungai Lokal Cisolok",
+        "penyebab": "Rawan banjir bandang dari hulu sungai",
+        "keterangan": "Perbatasan Banten, kontur curam",
+        "gambar": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.4485, -6.9463]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kecamatan": "Cikakak",
+        "status": "Zona Merah (Sangat Rawan)",
+        "lokasi_spesifik": "Pemukiman Lembah Cikakak",
+        "penyebab": "Potensi banjir bandang dan longsor",
+        "keterangan": "Wilayah dengan riwayat bencana campuran",
+        "gambar": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.512, -6.965]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kecamatan": "Simpenan",
+        "status": "Zona Merah (Sangat Rawan)",
+        "lokasi_spesifik": "Muara Sungai Cimandiri",
+        "penyebab": "Pertemuan arus sungai besar dan pasang laut",
+        "keterangan": "Area muara sangat rawan saat hujan hulu tinggi",
+        "gambar": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.578, -7.068]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kecamatan": "Tegalbuleud",
+        "status": "Zona Merah (Sangat Rawan)",
+        "lokasi_spesifik": "Muara Sungai Cikaso/Cibuni",
+        "penyebab": "Sering terdampak luapan muara sungai besar",
+        "keterangan": "Daerah hilir, air kiriman dari utara",
+        "gambar": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.7185, -7.422]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kecamatan": "Ciemas",
+        "status": "Zona Merah (Sangat Rawan)",
+        "lokasi_spesifik": "Desa Tamanjaya / Kawasan Geopark",
+        "penyebab": "Banjir rendaman akibat drainase alam terhambat",
+        "keterangan": "Banjir sering merendam sawah dan jalan",
+        "gambar": "assets/ciemas.jpeg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.5055, -7.163]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kecamatan": "Cicurug",
+        "status": "Zona Merah (Sangat Rawan)",
+        "lokasi_spesifik": "Area Sungai Cicatih / Pemukiman Padat",
+        "penyebab": "Banjir limpasan cepat/banjir bandang",
+        "keterangan": "Akibat curah hujan tinggi di kaki Gunung Salak",
+        "gambar": "assets/cicurug.jpeg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.7788, -6.7905]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kecamatan": "Cidolog",
+        "status": "Zona Merah (Sangat Rawan)",
+        "lokasi_spesifik": "Jalan Utama Cidolog",
+        "penyebab": "Banjir rendaman (cekungan)",
+        "keterangan": "Sering memutus akses jalan provinsi",
+        "gambar": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.8363, -7.3064]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kecamatan": "Sukaraja",
+        "status": "Zona Merah (Sangat Rawan)",
+        "lokasi_spesifik": "Perumahan/Pemukiman Sukaraja",
+        "penyebab": "Banjir limpasan drainase dan sungai kecil",
+        "keterangan": "Urban flooding (banjir perkotaan)",
+        "gambar": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.9731, -6.9172]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kecamatan": "Warungkiara",
+        "status": "Zona Merah (Sangat Rawan)",
+        "lokasi_spesifik": "Desa Ubrug",
+        "penyebab": "Luapan Sungai Cimandiri",
+        "keterangan": "Arus sungai deras dan volume besar",
+        "gambar": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.7025, -6.9422]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kecamatan": "Pabuaran",
+        "status": "Zona Merah (Sangat Rawan)",
+        "lokasi_spesifik": "Wilayah Hilir Pabuaran",
+        "penyebab": "Pertemuan arus sungai",
+        "keterangan": "Rawan banjir kiriman",
+        "gambar": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.831, -7.135]
       }
     }
   ]

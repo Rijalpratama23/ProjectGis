@@ -12,15 +12,14 @@ body {
 }
 .judul {
   display: flex;
+  justify-content: center;
 }
 
 #map {
   height: 100vh;
   width: 100%;
 }
-judul {
-  display: flex;
-}
+
 h1 {
   position: absolute;
   top: 10px;
