@@ -1,0 +1,200 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "kecamatan": "Cicurug",
+        "status": "Zona Merah (Rawan Tinggi)",
+        "lokasi_spesifik": "Desa Mekarsari / Area Sungai Cicatih",
+        "penyebab": "Banjir bandang dan luapan Sungai Cicatih",
+        "keterangan": "Sering terjadi banjir bandang, 589 rumah rusak (2024)",
+        "gambar": "assets/cicurug.jpeg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.7788, -6.7905]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kecamatan": "Ciemas",
+        "status": "Zona Merah (Rawan Tinggi)",
+        "lokasi_spesifik": "Desa Tamanjaya / Pesisir",
+        "penyebab": "Banjir rendaman cukup lama",
+        "keterangan": "Ratusan rumah terendam, gagal panen",
+        "gambar": "assets/ciemas.jpeg"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.505, -7.1633]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kecamatan": "Sagaranten",
+        "status": "Zona Merah (Rawan Tinggi)",
+        "lokasi_spesifik": "Terminal/Pasar Sagaranten",
+        "penyebab": "Luapan sungai saat hujan tinggi",
+        "keterangan": "Akses jalan terputus sementara",
+        "gambar": "assets/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.8886, -7.1581]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kecamatan": "Pelabuhan Ratu",
+        "status": "Zona Merah (Rawan Tinggi)",
+        "lokasi_spesifik": "Muara Citarik / Area Pantai",
+        "penyebab": "Banjir rob dan luapan drainase perkotaan",
+        "keterangan": "Rawan banjir rob tahunan",
+        "gambar": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.5479, -6.9868]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kecamatan": "Cidolog",
+        "status": "Zona Merah (Rawan Tinggi)",
+        "lokasi_spesifik": "Desa Cidolog / Jembatan Utama",
+        "penyebab": "Banjir luapan sungai",
+        "keterangan": "Sering memutus akses jalan",
+        "gambar": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.8363, -7.3064]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kecamatan": "Warungkiara",
+        "status": "Zona Kuning (Waspada)",
+        "lokasi_spesifik": "Desa Ubrug (Kp. Cijoneng)",
+        "penyebab": "Luapan sungai lokal",
+        "keterangan": "Terdampak luapan sungai",
+        "gambar": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.7025, -6.9422]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kecamatan": "Sukaraja",
+        "status": "Zona Kuning (Waspada)",
+        "lokasi_spesifik": "Kp. Lembur, Desa Sukaraja",
+        "penyebab": "Banjir lintasan akibat drainase",
+        "keterangan": "Banjir drainase pemukiman",
+        "gambar": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.9731, -6.9172]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kecamatan": "Cikakak",
+        "status": "Zona Kuning (Waspada)",
+        "lokasi_spesifik": "Kp. Cihangasa, Desa Sirnarasa",
+        "penyebab": "Rawan longsor disertai banjir lumpur",
+        "keterangan": "Tanah longsor menutup jalan (2024)",
+        "gambar": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.5014, -6.9572]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kecamatan": "Cibadak",
+        "status": "Zona Kuning (Waspada)",
+        "lokasi_spesifik": "Jalan Suryakencana / Kota",
+        "penyebab": "Banjir bandang dari aliran sungai dataran tinggi",
+        "keterangan": "Jalan nasional sering terendam",
+        "gambar": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.7855, -6.8938]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kecamatan": "Tegalbuleud",
+        "status": "Zona Kuning (Waspada)",
+        "lokasi_spesifik": "Desa Buniasih",
+        "penyebab": "Waspada banjir muara sungai",
+        "keterangan": "Banjir rendam dua desa (2024)",
+        "gambar": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.719, -7.4231]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kecamatan": "Gegerbitung",
+        "status": "Zona Hijau (Rawan Longsor)",
+        "lokasi_spesifik": "Kp. Bongas, Desa Gegerbitung",
+        "penyebab": "Risiko banjir rendah, Rawan Longsor",
+        "keterangan": "Longsor di pemukiman (2021)",
+        "gambar": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [107.016, -6.9804]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kecamatan": "Nyalindung",
+        "status": "Zona Hijau (Rawan Longsor)",
+        "lokasi_spesifik": "Kp. Cijangkar, Desa Cijangkar",
+        "penyebab": "Risiko banjir rendah, Rawan Longsor",
+        "keterangan": "Longsor menutup akses jalan",
+        "gambar": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.9434, -7.0431]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "kecamatan": "Purabaya",
+        "status": "Zona Hijau (Rawan Longsor)",
+        "lokasi_spesifik": "Pusat Kecamatan Purabaya",
+        "penyebab": "Risiko banjir rendah, Rawan Longsor",
+        "keterangan": "Daerah dataran tinggi",
+        "gambar": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.8788, -7.1086]
+      }
+    }
+  ]
+}

@@ -1,0 +1,135 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar {
+  display: inline-block;
+  width: 150px;
+  background-color: #3498db;
+  position: relative;
+}
+.judul {
+  display: flex;
+}
+
+#map {
+  height: 100vh;
+  width: 100%;
+}
+judul {
+  display: flex;
+}
+h1 {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin: 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  font-size: 1.4rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+.leaflet-popup-content-wrapper {
+  border-radius: 8px;
+}
+.leaflet-popup-content {
+  margin: 15px;
+  line-height: 1.5;
+}
+/* Legenda */
+.info-legend {
+  font-size: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  position: absolute;
+  bottom: 30px;
+  left: 10px;
+  z-index: 1000;
+  min-width: 150px;
+  padding: 15px;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.circle-color {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  margin-right: 8px;
+  opacity: 0.7;
+}
+
+/* --- UPDATE CSS WIDGET CUACA --- */
+.weather-widget {
+  background: white;
+  border: 2px solid #3498db;
+  border-radius: 12px;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  font-family: Arial, sans-serif;
+  min-width: 130px;
+  position: relative;
+}
+/* Segitiga kecil di bawah widget */
+.weather-widget::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px 8px 0;
+  border-style: solid;
+  border-color: inherit transparent transparent transparent;
+}
+.weather-value {
+  font-size: 20px;
+  font-weight: 800;
+  margin: 4px 0;
+}
+.weather-label {
+  font-size: 10px;
+  color: #7f8c8d;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+path.leaflet-interactive:focus {
+  outline: none;
+}
+
+/* Keyframes untuk efek berdenyut */
+@keyframes pulse-animation {
+  0% {
+    stroke-width: 2px;
+    fill-opacity: 0.8;
+    stroke-opacity: 1;
+  }
+  50% {
+    stroke-width: 15px; /* Garis menebal */
+    fill-opacity: 0.5;
+    stroke-opacity: 0.5; /* Garis memudar */
+  }
+  100% {
+    stroke-width: 2px;
+    fill-opacity: 0.8;
+    stroke-opacity: 1;
+  }
+}
+
+/* Class ini akan dipanggil di Javascript */
+.animasi-alert {
+  transform-origin: center; /* Pastikan animasi dari tengah */
+  animation: pulse-animation 2s infinite; /* Berulang selamanya setiap 2 detik */
+}

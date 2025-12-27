@@ -8,29 +8,13 @@
         "history": "Wilayah perbukitan yang merupakan hasil pemekaran Desa Cisolok. Akses jalan menanjak (inland) menjauhi garis pantai. Terdapat potensi wisata panas bumi (Geyser Cisolok). Batas alam ditandai oleh kontur pegunungan dan lahan perkebunan.",
         "image": "assets/wangunsari.jpg"
       },
-      "geometry": {
-        "coordinates": [
-          106.46468421379399,
-          -6.936205644495786
-        ],
-        "type": "Point"
-      },
+      "geometry": { "coordinates": [-6.932070360881248, 106.92451845086431], "type": "Point" },
       "id": 0
     },
     {
       "type": "Feature",
-      "properties": {
-        "name": "Perbatasan Desa Cisolok",
-        "history": "Ini merupakan Batas wilayah bagian selatan samudra Indonesia, perbatasan ini dekat dengan laut.",
-        "image": "assets/karangpapak.jpg"
-      },
-      "geometry": {
-        "coordinates": [
-          106.46976277032445,
-          -6.959552074396925
-        ],
-        "type": "Point"
-      },
+      "properties": { "name": "Perbatasan Desa Cisolok", "history": "Ini merupakan Batas wilayah bagian selatan samudra Indonesia, perbatasan ini dekat dengan laut.", "image": "assets/karangpapak.jpg" },
+      "geometry": { "coordinates": [106.46976277032445, -6.959552074396925], "type": "Point" },
       "id": 1
     },
     {
@@ -40,63 +24,26 @@
         "history": "Berbatasan langsung dengan dipisahkan oleh aliran Sungai Cisolok. Wilayah ini merupakan jalur utama menuju perbatasan Provinsi Banten. Topografi cenderung datar di dekat jembatan penghubung namun mulai berkelok ke arah barat.",
         "image": "assets/cikahuripan.jpg"
       },
-      "geometry": {
-        "coordinates": [
-          106.44811094255817,
-          -6.946866733891483
-        ],
-        "type": "Point"
-      },
+      "geometry": { "coordinates": [106.44811094255817, -6.946866733891483], "type": "Point" },
       "id": 2
     },
     {
       "type": "Feature",
-      "properties": {
-        "name": "Area Rawan Banjir",
-        "status": "Sangat Rawan",
-        "history": "Banjir bandang Tahun 2025 setinggi 1.5 meter, merendam hampir 30 rumah warga.",
-        "image": "assets/banjir.jpg"
-      },
-      "geometry": {
-        "coordinates": [
-          106.44793933768273,
-          -6.945543558159329
-        ],
-        "type": "Point"
-      },
+      "properties": { "name": "Area Rawan Banjir", "status": "Sangat Rawan", "history": "Banjir bandang Tahun 2025 setinggi 1.5 meter, merendam hampir 30 rumah warga.", "image": "assets/banjir.jpg" },
+      "geometry": { "coordinates": [106.44793933768273, -6.945543558159329], "type": "Point" },
       "id": 3
     },
     {
       "type": "Feature",
-      "properties": {
-        "name": "Daerah Rawan Banjir",
-        "status": "Sangat Rawan",
-        "history": "Terjadi banjir bandang pada Tanggal 27 oktober 2025 setinggi 1.5 meter, merendam hampir 30 rumah warga.",
-        "image": "assets/banjir2.webp"
-      },
+      "properties": { "name": "Daerah Rawan Banjir", "status": "Sangat Rawan", "history": "Terjadi banjir bandang pada Tanggal 27 oktober 2025 setinggi 1.5 meter, merendam hampir 30 rumah warga.", "image": "assets/banjir2.webp" },
       "geometry": {
         "coordinates": [
           [
-            [
-              106.44539519111959,
-              -6.944235443595701
-            ],
-            [
-              106.44539519111959,
-              -6.9475453170353205
-            ],
-            [
-              106.44862387544538,
-              -6.9475453170353205
-            ],
-            [
-              106.44862387544538,
-              -6.944235443595701
-            ],
-            [
-              106.44539519111959,
-              -6.944235443595701
-            ]
+            [106.44539519111959, -6.944235443595701],
+            [106.44539519111959, -6.9475453170353205],
+            [106.44862387544538, -6.9475453170353205],
+            [106.44862387544538, -6.944235443595701],
+            [106.44539519111959, -6.944235443595701]
           ]
         ],
         "type": "Polygon"
@@ -105,52 +52,21 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "name": "Pos Evakuasi",
-        "status": "Pos Evakuasi",
-        "history": "Ini merupakan Post evakuasi yang ada di daerah ci solok, semua korban biasanya di evakuasi ke posko ini.",
-        "image": "assets/evakuasii.jpg"
-      },
-      "geometry": {
-        "coordinates": [
-          106.44875393715444,
-          -6.949144658604098
-        ],
-        "type": "Point"
-      },
+      "properties": { "name": "Pos Evakuasi", "status": "Pos Evakuasi", "history": "Ini merupakan Post evakuasi yang ada di daerah ci solok, semua korban biasanya di evakuasi ke posko ini.", "image": "assets/evakuasii.jpg" },
+      "geometry": { "coordinates": [106.44875393715444, -6.949144658604098], "type": "Point" },
       "id": 7
     },
     {
       "type": "Feature",
-      "properties": {
-        "name": "Pos Evakuasi",
-        "status": "Pos Evakuasi",
-        "history": "Ini merupakan Post evakuasi yang ada di daerah ci solok, semua korban biasanya di evakuasi ke posko ini.",
-        "image": "assets/evakuasii.jpg"
-      },
+      "properties": { "name": "Pos Evakuasi", "status": "Pos Evakuasi", "history": "Ini merupakan Post evakuasi yang ada di daerah ci solok, semua korban biasanya di evakuasi ke posko ini.", "image": "assets/evakuasii.jpg" },
       "geometry": {
         "coordinates": [
           [
-            [
-              106.44866893454645,
-              -6.949072030442238
-            ],
-            [
-              106.44866893454645,
-              -6.949238520199842
-            ],
-            [
-              106.44882565825031,
-              -6.949238520199842
-            ],
-            [
-              106.44882565825031,
-              -6.949072030442238
-            ],
-            [
-              106.44866893454645,
-              -6.949072030442238
-            ]
+            [106.44866893454645, -6.949072030442238],
+            [106.44866893454645, -6.949238520199842],
+            [106.44882565825031, -6.949238520199842],
+            [106.44882565825031, -6.949072030442238],
+            [106.44866893454645, -6.949072030442238]
           ]
         ],
         "type": "Polygon"
@@ -159,94 +75,29 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "name": "Jalur Sungai",
-        "status": "Arus sungai Sedang pasang",
-        "history": "meluap pada tahun 2025 dan menyebabkan banjir bandang",
-        "image": "assets/sungai.jpg"
-      },
+      "properties": { "name": "Jalur Sungai", "status": "Arus sungai Sedang pasang", "history": "meluap pada tahun 2025 dan menyebabkan banjir bandang", "image": "assets/sungai.jpg" },
       "geometry": {
         "coordinates": [
-          [
-            106.45714644398737,
-            -6.931550938791489
-          ],
-          [
-            106.45625229996921,
-            -6.932008558794564
-          ],
-          [
-            106.45579323228111,
-            -6.932883146752175
-          ],
-          [
-            106.45538294989535,
-            -6.933204368794506
-          ],
-          [
-            106.45476056752733,
-            -6.933127994215255
-          ],
-          [
-            106.4535481151791,
-            -6.93413786540799
-          ],
-          [
-            106.45331426245934,
-            -6.934496718217545
-          ],
-          [
-            106.45256519667282,
-            -6.93471044276194
-          ],
-          [
-            106.45263333773147,
-            -6.935084379206501
-          ],
-          [
-            106.44912378341121,
-            -6.937556327277747
-          ],
-          [
-            106.44921128022617,
-            -6.938857553650976
-          ],
-          [
-            106.44910507187427,
-            -6.939807391290444
-          ],
-          [
-            106.44889601309671,
-            -6.940904418152158
-          ],
-          [
-            106.44861321671169,
-            -6.942965246468958
-          ],
-          [
-            106.44914330829812,
-            -6.945107836689289
-          ],
-          [
-            106.4491972150584,
-            -6.94666261415189
-          ],
-          [
-            106.4489990326507,
-            -6.947381411490795
-          ],
-          [
-            106.445798029603,
-            -6.949411729808034
-          ],
-          [
-            106.44474553400408,
-            -6.952175116227465
-          ],
-          [
-            106.44514902078481,
-            -6.953142210757207
-          ]
+          [106.45714644398737, -6.931550938791489],
+          [106.45625229996921, -6.932008558794564],
+          [106.45579323228111, -6.932883146752175],
+          [106.45538294989535, -6.933204368794506],
+          [106.45476056752733, -6.933127994215255],
+          [106.4535481151791, -6.93413786540799],
+          [106.45331426245934, -6.934496718217545],
+          [106.45256519667282, -6.93471044276194],
+          [106.45263333773147, -6.935084379206501],
+          [106.44912378341121, -6.937556327277747],
+          [106.44921128022617, -6.938857553650976],
+          [106.44910507187427, -6.939807391290444],
+          [106.44889601309671, -6.940904418152158],
+          [106.44861321671169, -6.942965246468958],
+          [106.44914330829812, -6.945107836689289],
+          [106.4491972150584, -6.94666261415189],
+          [106.4489990326507, -6.947381411490795],
+          [106.445798029603, -6.949411729808034],
+          [106.44474553400408, -6.952175116227465],
+          [106.44514902078481, -6.953142210757207]
         ],
         "type": "LineString"
       },
@@ -254,31 +105,59 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "name": "Perbatasan Desa Cisolok"
-      },
+      "properties": { "name": "Perbatasan Desa Cisolok" },
       "geometry": {
         "coordinates": [
-          [
-            106.46462049729803,
-            -6.936148785572186
-          ],
-          [
-            106.46971573344479,
-            -6.959466195519212
-          ],
-          [
-            106.44812574977334,
-            -6.946821787676868
-          ],
-          [
-            106.46462049729803,
-            -6.936234513460988
-          ]
+          [106.46462049729803, -6.936148785572186],
+          [106.46971573344479, -6.959466195519212],
+          [106.44812574977334, -6.946821787676868],
+          [106.46462049729803, -6.936234513460988]
         ],
         "type": "LineString"
       },
       "id": 8
-    }
+    },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.88470452846542, -7.220260442146454], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.88546333207859, -7.221387474379696], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.88584292178774, -7.221387295527492], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.88584292178774, -7.221387295527492], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.88527621284561, -7.222345567690027], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.88489669879004, -7.22159443634763], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.88527684463514, -7.22103074497295], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.88385277420463, -7.220366771463986], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.88698351556906, -7.218483222917911], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.88594005607331, -7.21961301697776], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.8857503368182, -7.219613137960096], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.8852759472885, -7.219190222656152], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.88537086961014, -7.219237305956753], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.88537087143544, -7.218954805644927], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.88537087143544, -7.218954805644927], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.92238993985848, -6.9210519915185245], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.88310727544854, -7.218905756264135], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.88344076481104, -7.219567891167273], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.88377443377362, -7.219236856242944], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.88404775494809, -7.2194848394701125], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.88404775494809, -7.2194848394701125], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.88582423818877, -7.219486059530837], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.88582454621536, -7.219485996178051], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.8858247182668, -7.21948596079271], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.88512703132972, -7.218917452159161], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.8832593266456, -7.220877897104174], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.8837271940352, -7.2093332404458295], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.88956509544914, -7.2096066880218075], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.8908876856243, -7.207584282235587], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.88293292027242, -7.2174281987078786], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.8838770063449, -7.218365205935228], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.8845065813282, -7.218365196860063], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.8845065813282, -7.218365196860063], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.88450482777114, -7.2183650407385045], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.88607445726376, -7.219143818412732], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.88398170360364, -7.2178458327777975], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.88398170360364, -7.2178458327777975], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.88528400808525, -7.217715737559715], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.88580556155341, -7.216288721616138], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.89485164341784, -7.2565264145681], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.89554032349889, -7.255839348183201], "type": "Point" } },
+    { "type": "Feature", "properties": {}, "geometry": { "coordinates": [106.88616629595816, -7.221902135229328], "type": "Point" } }
   ]
 }
