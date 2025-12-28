@@ -14,7 +14,7 @@ var esriSatelite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/serv
 });
 
 // ============================================================
-// 2. LAYER GROUPS (DEFINISI VARIABEL DI SINI AGAR TIDAK ERROR)
+// 2. LAYER GROUPS
 // ============================================================
 var markersLayer = L.layerGroup().addTo(map);
 var polylineLayer = L.layerGroup().addTo(map);
@@ -24,7 +24,7 @@ var bufferLayer = L.layerGroup().addTo(map);
 var weatherLayer = L.layerGroup().addTo(map);
 var geoAiLayer = L.layerGroup().addTo(map);
 var adminLayer = L.layerGroup().addTo(map);
-var riskAnalysisLayer = L.layerGroup().addTo(map); // <--- Didefinisikan di sini
+var riskAnalysisLayer = L.layerGroup().addTo(map);
 
 // ============================================================
 // 3. KONFIGURASI GLOBAL & UTILS
@@ -33,10 +33,57 @@ const latCisolok = -6.94634;
 const lngCisolok = 106.448544;
 let sungaiGeoJson = null;
 
-// Definisi Icon (Pastikan file ada di folder assets)
 // ============================================================
-// 4. FITUR GEO-AI & CUACA
+// 4. FITUR GEO-AI & CUACA (Fungsi Helper)
 // ============================================================
+
+// Fungsi untuk mengambil Data Cuaca dari Open-Meteo (TUGAS INTEGRASI API)
+function getWeatherFromAPI(lat, lng, elementId) {
+  // URL API Open Meteo (Gratis, Tidak butuh Key)
+  const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current=temperature_2m,rain&timezone=Asia%2FJakarta`;
+
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => {
+      const current = data.current;
+      const rain = current.rain; // Curah hujan dalam mm
+      const temp = current.temperature_2m; // Suhu dalam celcius
+
+      // Logika Status Hujan Sederhana
+      let statusHujan = 'Cerah/Berawan ☁️';
+      let colorText = '#27ae60'; // Hijau
+
+      if (rain > 0.5) {
+        statusHujan = 'Hujan Ringan 🌦️';
+        colorText = '#d35400';
+      } // Orange
+      if (rain > 5.0) {
+        statusHujan = 'HUJAN DERAS ⛈️';
+        colorText = '#c0392b';
+      } // Merah
+
+      // Update elemen HTML di dalam Popup
+      const el = document.getElementById(`weather-${elementId}`);
+      if (el) {
+        el.innerHTML = `
+          <div style="font-size:11px; margin-bottom:4px;"><b>📡 Data Real-time (Open-Meteo):</b></div>
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+             <span>🌡️ ${temp}°C</span>
+             <span>💧 ${rain} mm</span>
+          </div>
+          <div style="margin-top:5px; color:${colorText}; font-weight:bold; border-top:1px dashed #ccc; padding-top:2px;">
+            ${statusHujan}
+          </div>
+        `;
+      }
+    })
+    .catch((err) => {
+      console.error('API Error:', err);
+      const el = document.getElementById(`weather-${elementId}`);
+      if (el) el.innerHTML = "<small style='color:red;'>Gagal memuat data cuaca</small>";
+    });
+}
+
 function updateGeoAIPrediction(rainAmount) {
   geoAiLayer.clearLayers();
   if (!sungaiGeoJson) return;
@@ -45,11 +92,11 @@ function updateGeoAIPrediction(rainAmount) {
   let colorPrediksi = '#8e44ad';
 
   if (rainAmount < 0.5) {
-    radiusLuapan = 0.05; // 50 meter
+    radiusLuapan = 0.05;
   } else if (rainAmount >= 0.5 && rainAmount < 2.0) {
-    radiusLuapan = 0.3; // 300 meter
+    radiusLuapan = 0.3;
   } else {
-    radiusLuapan = 0.6; // 600 meter
+    radiusLuapan = 0.6;
   }
 
   var buffered = turf.buffer(sungaiGeoJson, radiusLuapan, { units: 'kilometers' });
@@ -62,23 +109,10 @@ function updateGeoAIPrediction(rainAmount) {
     .addTo(geoAiLayer);
 }
 
-function getRealtimeWeather() {
-  const weatherAPIUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latCisolok}&longitude=${lngCisolok}&current=rain,showers,weather_code&timezone=Asia%2FJakarta&time=${new Date().getTime()}`;
-
-  fetch(weatherAPIUrl)
-    .then((response) => response.json())
-    .then((data) => {
-      // Logic cuaca di sini (bisa ditambahkan marker custom jika perlu)
-    })
-    .catch((error) => console.error('Gagal update cuaca:', error));
-}
-getRealtimeWeather();
-setInterval(getRealtimeWeather, 300000);
-
 // ============================================================
 // 5. LOAD DATA MAP UTAMA (map (3).geojson)
 // ============================================================
-fetch('map (3).geojson?t=' + new Date().getTime())
+fetch('banjir_risk_point.json?t=' + new Date().getTime())
   .then((res) => {
     if (!res.ok) throw new Error('File map (3).geojson tidak ditemukan!');
     return res.json();
@@ -101,23 +135,17 @@ fetch('map (3).geojson?t=' + new Date().getTime())
         layer.bindTooltip(name, { direction: 'top', offset: [0, -35] });
 
         if (feature.geometry.type === 'Point') {
-          let selectedIcon = iconDefault;
+          let selectedIcon = new L.Icon.Default(); // Fallback icon
           const lowerName = name.toLowerCase();
+
+          // Logic sederhana untuk icon (jika variabel icon tidak didefinisikan di snippet ini)
+          // Asumsi variabel iconBanjir/iconBatas ada di file lain atau default
+
           if (lowerName.includes('banjir')) {
-            selectedIcon = iconBanjir;
             layer.addTo(floodPointsLayer);
-            // Buffer Logic
-            if (name === 'Area Rawan Banjir') {
-              var pt = turf.point(feature.geometry.coordinates);
-              L.geoJSON(turf.buffer(pt, 1.0, { units: 'kilometers' }), { style: { color: 'green', fillOpacity: 0.1, weight: 0 } }).addTo(bufferLayer);
-              L.geoJSON(turf.buffer(pt, 0.5, { units: 'kilometers' }), { style: { color: 'orange', fillOpacity: 0.2, weight: 0 } }).addTo(bufferLayer);
-              L.geoJSON(turf.buffer(pt, 0.2, { units: 'kilometers' }), { style: { color: 'red', fillOpacity: 0.3, weight: 0 } }).addTo(bufferLayer);
-            }
-          } else if (lowerName.includes('batas')) {
-            selectedIcon = iconBatas;
+          } else {
+            layer.addTo(markersLayer);
           }
-          layer.setIcon(selectedIcon);
-          if (!lowerName.includes('banjir')) layer.addTo(markersLayer);
         }
 
         if (feature.geometry.type === 'LineString') {
@@ -166,7 +194,7 @@ fetch('gadm41_IDN_3 (1).json')
   .catch((err) => console.error('Gagal load GADM:', err));
 
 // ============================================================
-// 7. LOAD DATA RISIKO BANJIR (ANIMASI + GAMBAR)
+// 7. LOAD DATA RISIKO BANJIR (ZONASI MERAH/KUNING/HIJAU)
 // ============================================================
 fetch('banjir_risk_point.json?t=' + new Date().getTime())
   .then((res) => {
@@ -201,10 +229,13 @@ fetch('banjir_risk_point.json?t=' + new Date().getTime())
       },
       onEachFeature: function (feature, layer) {
         var p = feature.properties;
+        // Ambil Koordinat untuk API
+        var coords = feature.geometry.coordinates;
 
         // --- LOGIKA GAMBAR ---
         var imageSrc = p.gambar && p.gambar !== '' ? p.gambar : 'https://via.placeholder.com/300x150?text=No+Image';
 
+        // --- KONTAINER POPUP DENGAN PLACEHOLDER API ---
         var kontenPopup = `
           <div style="font-family: Arial, sans-serif; min-width: 260px;">
             <div style="width: 100%; height: 150px; overflow: hidden; border-radius: 8px; margin-bottom: 10px; background: #eee;">
@@ -212,9 +243,15 @@ fetch('banjir_risk_point.json?t=' + new Date().getTime())
             </div>
             <h3 style="margin: 0; color: #2c3e50; font-size: 16px;">${p.kecamatan}</h3>
             <small style="color: #7f8c8d; display: block; margin-bottom: 5px;">${p.lokasi_spesifik}</small>
+            
             <span style="background:${p.status.includes('Merah') ? '#e74c3c' : p.status.includes('Kuning') ? '#f39c12' : '#2ecc71'}; color:white; padding:4px 8px; border-radius:4px; font-size:10px; font-weight:bold;">
               ${p.status}
             </span>
+
+            <div id="weather-${p.kecamatan.replace(/\s/g, '')}" style="margin: 10px 0; padding: 10px; background: #f0f8ff; border-radius: 6px; border: 1px solid #dcdcdc; color: #555; font-size: 12px;">
+              ⏳ Mengambil data cuaca...
+            </div>
+
             <hr style="border: 0; border-top: 1px solid #eee; margin: 10px 0;">
             <div style="font-size: 12px; line-height: 1.5; color: #444;">
               <strong>🌊 Penyebab:</strong> ${p.penyebab}<br>
@@ -222,8 +259,15 @@ fetch('banjir_risk_point.json?t=' + new Date().getTime())
             </div>
           </div>
         `;
+
         layer.bindPopup(kontenPopup);
         layer.bindTooltip(p.kecamatan, { direction: 'top', offset: [0, -10] });
+
+        // --- EVENT LISTENER: PANGGIL API SAAT POPUP DIBUKA ---
+        layer.on('popupopen', function () {
+          // Memanggil fungsi API dengan koordinat marker ini
+          getWeatherFromAPI(coords[1], coords[0], p.kecamatan.replace(/\s/g, ''));
+        });
       },
     }).addTo(riskAnalysisLayer);
 
