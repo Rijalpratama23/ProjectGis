@@ -133,3 +133,84 @@ path.leaflet-interactive:focus {
   transform-origin: center; /* Pastikan animasi dari tengah */
   animation: pulse-animation 2s infinite; /* Berulang selamanya setiap 2 detik */
 }
+
+/* =========================================
+   RESPONSIVE MEDIA QUERIES
+   ========================================= */
+
+/* Untuk Tablet dan Layar Mobile (Lebar di bawah 768px) */
+@media screen and (max-width: 768px) {
+  /* 1. Penyesuaian Judul Melayang */
+  h1 {
+    width: 85%; /* Supaya tidak terlalu lebar sampai pinggir layar */
+    font-size: 0.9rem; /* Perkecil ukuran font */
+    padding: 8px 15px; /* Kurangi padding */
+    top: 15px; /* Jarak dari atas */
+    flex-direction: column; /* Logo di atas, teks di bawah (opsional, agar rapi) */
+    gap: 5px; /* Jarak antara logo dan teks */
+  }
+
+  /* Perkecil ukuran logo di dalam judul */
+  .logo img {
+    width: 40px !important; /* Paksa ukuran logo lebih kecil */
+    height: auto;
+  }
+
+  /* 2. Penyesuaian Legenda */
+  .info-legend {
+    font-size: 10px; /* Perkecil font legenda */
+    padding: 10px; /* Kurangi padding */
+    bottom: 25px; /* Sesuaikan jarak bawah */
+    left: 10px;
+    min-width: 120px; /* Perkecil lebar minimal */
+    max-width: 150px;
+  }
+
+  .legend-item {
+    margin-bottom: 5px; /* Rapatkan jarak antar item */
+  }
+
+  .circle-color {
+    width: 12px; /* Perkecil simbol bulat */
+    height: 12px;
+    margin-right: 5px;
+  }
+
+  /* 3. Penyesuaian Widget Cuaca (di dalam Popup) */
+  .weather-widget {
+    min-width: 100px;
+    padding: 8px;
+  }
+
+  .weather-value {
+    font-size: 16px;
+  }
+
+  /* 4. Penyesuaian Popup Leaflet agar muat di layar HP */
+  .leaflet-popup-content {
+    margin: 10px 5px; /* Kurangi margin */
+    min-width: 200px !important; /* Lebar minimal popup */
+    max-width: 250px !important; /* Jangan terlalu lebar */
+  }
+
+  .leaflet-popup-content h3 {
+    font-size: 14px !important; /* Perkecil judul kecamatan di popup */
+  }
+
+  .leaflet-popup-content img {
+    height: 100px !important; /* Perkecil tinggi gambar di popup */
+  }
+}
+
+/* Untuk Layar Sangat Kecil (Lebar di bawah 480px - HP Kecil) */
+@media screen and (max-width: 480px) {
+  h1 {
+    font-size: 0.8rem; /* Font lebih kecil lagi */
+    width: 90%;
+  }
+
+  .info-legend {
+    bottom: 20px;
+    left: 5px; /* Lebih mepet kiri */
+  }
+}

@@ -23,6 +23,10 @@ var floodPointsLayer = L.layerGroup().addTo(map);
 var bufferLayer = L.layerGroup().addTo(map);
 var weatherLayer = L.layerGroup().addTo(map);
 var geoAiLayer = L.layerGroup().addTo(map);
+
+// Layer Heatmap (Jangan addTo map dulu, biar user yang centang di kontrol layer)
+var geoAiHeatmapLayer = L.layerGroup();
+
 var adminLayer = L.layerGroup().addTo(map);
 var riskAnalysisLayer = L.layerGroup().addTo(map);
 
@@ -55,23 +59,25 @@ function getWeatherFromAPI(lat, lng, elementId) {
 
       if (rain > 0.5) {
         statusHujan = 'Hujan Ringan 🌦️';
-        colorText = '#d35400';
-      } // Orange
+        colorText = '#d35400'; // Orange
+      }
       if (rain > 5.0) {
         statusHujan = 'HUJAN DERAS ⛈️';
-        colorText = '#c0392b';
-      } // Merah
+        colorText = '#c0392b'; // Merah
+      }
 
       // Update elemen HTML di dalam Popup
       const el = document.getElementById(`weather-${elementId}`);
       if (el) {
         el.innerHTML = `
-          <div style="font-size:11px; margin-bottom:4px;"><b>📡 Data Real-time (Open-Meteo):</b></div>
-          <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div style="font-size:11px; margin-bottom:4px; border-bottom:1px solid #ddd; padding-bottom:4px;">
+            <b>📡 Data Real-time (Open-Meteo):</b>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; font-size:13px;">
              <span>🌡️ ${temp}°C</span>
              <span>💧 ${rain} mm</span>
           </div>
-          <div style="margin-top:5px; color:${colorText}; font-weight:bold; border-top:1px dashed #ccc; padding-top:2px;">
+          <div style="margin-top:5px; color:${colorText}; font-weight:bold; font-size:12px;">
             ${statusHujan}
           </div>
         `;
@@ -112,7 +118,7 @@ function updateGeoAIPrediction(rainAmount) {
 // ============================================================
 // 5. LOAD DATA MAP UTAMA (map (3).geojson)
 // ============================================================
-fetch('banjir_risk_point.json?t=' + new Date().getTime())
+fetch('map (3).geojson?t=' + new Date().getTime())
   .then((res) => {
     if (!res.ok) throw new Error('File map (3).geojson tidak ditemukan!');
     return res.json();
@@ -135,11 +141,8 @@ fetch('banjir_risk_point.json?t=' + new Date().getTime())
         layer.bindTooltip(name, { direction: 'top', offset: [0, -35] });
 
         if (feature.geometry.type === 'Point') {
-          let selectedIcon = new L.Icon.Default(); // Fallback icon
+          let selectedIcon = new L.Icon.Default();
           const lowerName = name.toLowerCase();
-
-          // Logic sederhana untuk icon (jika variabel icon tidak didefinisikan di snippet ini)
-          // Asumsi variabel iconBanjir/iconBatas ada di file lain atau default
 
           if (lowerName.includes('banjir')) {
             layer.addTo(floodPointsLayer);
@@ -202,20 +205,30 @@ fetch('banjir_risk_point.json?t=' + new Date().getTime())
     return res.json();
   })
   .then((data) => {
+    // ARRAY UNTUK MENAMPUNG TITIK HEATMAP
+    var heatMapPoints = [];
+
     L.geoJSON(data, {
       pointToLayer: function (feature, latlng) {
         // --- LOGIKA WARNA & ANIMASI ---
         var status = feature.properties.status || '';
         var colorCode = '#2ecc71'; // Default Hijau
-        var animClass = ''; // Default tanpa animasi
+        var animClass = '';
+        var intensity = 0.2; // Default Heatmap intensity
 
         if (status.includes('Merah')) {
           colorCode = '#e74c3c'; // Merah
-          animClass = 'animasi-alert'; // Class animasi (Wajib ada di CSS)
+          animClass = 'animasi-alert';
+          intensity = 1.0; // Merah sangat panas
         } else if (status.includes('Kuning')) {
           colorCode = '#f39c12'; // Kuning
           animClass = 'animasi-alert';
+          intensity = 0.6; // Kuning sedang
         }
+
+        // PENTING: PUSH DATA KE ARRAY HEATMAP
+        // [Latitude, Longitude, Intensitas]
+        heatMapPoints.push([latlng.lat, latlng.lng, intensity]);
 
         return L.circleMarker(latlng, {
           radius: 10,
@@ -229,7 +242,7 @@ fetch('banjir_risk_point.json?t=' + new Date().getTime())
       },
       onEachFeature: function (feature, layer) {
         var p = feature.properties;
-        // Ambil Koordinat untuk API
+        // Ambil Koordinat untuk API (GeoJSON formatnya [Lng, Lat])
         var coords = feature.geometry.coordinates;
 
         // --- LOGIKA GAMBAR ---
@@ -265,11 +278,24 @@ fetch('banjir_risk_point.json?t=' + new Date().getTime())
 
         // --- EVENT LISTENER: PANGGIL API SAAT POPUP DIBUKA ---
         layer.on('popupopen', function () {
-          // Memanggil fungsi API dengan koordinat marker ini
+          // Panggil API (Tukar posisi karena GeoJSON [Lng, Lat], API butuh [Lat, Lng])
           getWeatherFromAPI(coords[1], coords[0], p.kecamatan.replace(/\s/g, ''));
         });
       },
     }).addTo(riskAnalysisLayer);
+
+    // --- INISIALISASI LAYER HEATMAP ---
+    if (heatMapPoints.length > 0) {
+      var heat = L.heatLayer(heatMapPoints, {
+        radius: 35, // Sebaran panas
+        blur: 20, // Kehalusan gradasi
+        maxZoom: 12,
+        gradient: { 0.4: 'blue', 0.65: 'lime', 1: 'red' }, // Gradasi warna
+      });
+      // Masukkan ke layer group
+      geoAiHeatmapLayer.addLayer(heat);
+      console.log('GeoAI Heatmap Generated:', heatMapPoints.length, 'points');
+    }
 
     console.log('Data Zonasi Banjir (Lengkap) berhasil dimuat.');
   })
@@ -284,15 +310,13 @@ var baseMaps = {
 };
 
 var overlayMaps = {
-  'Lokasi Umum': markersLayer,
-  'Jalur/Garis Sungai': polylineLayer,
-  'Area Polygon': polygonLayer,
-  'Titik Laporan Warga': floodPointsLayer,
   '<span style="font-weight:bold; color:red;">🔴 Analisis Zonasi Rawan</span>': riskAnalysisLayer,
   '<span style="font-weight:bold;">Analisis Zona Buffer</span>': bufferLayer,
   '<span style="color:blue;">Info Curah Hujan (Live)</span>': weatherLayer,
   '<span style="color:purple; font-weight:bold;">[GeoAI] Prediksi Luapan</span>': geoAiLayer,
   'Batas Administrasi (Kecamatan)': adminLayer,
+  // Layer GeoAI Baru
+  '<span style="color: #e74c3c; font-weight: bold;">🔥 GeoAI: Heatmap Kepadatan</span>': geoAiHeatmapLayer,
 };
 
 L.control.layers(baseMaps, overlayMaps, { collapsed: true }).addTo(map);
