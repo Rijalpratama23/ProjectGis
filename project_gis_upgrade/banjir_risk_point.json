@@ -9,7 +9,7 @@
         "lokasi_spesifik": "Muara Citarik / Area Pantai",
         "penyebab": "Banjir rob dan luapan drainase perkotaan",
         "keterangan": "Rawan banjir rob tahunan",
-        "gambar": ""
+        "gambar": "assets/pelabuhanratu.jpg"
       },
       "geometry": {
         "type": "Point",
@@ -24,7 +24,7 @@
         "lokasi_spesifik": "Bantaran Sungai Lokal Cisolok",
         "penyebab": "Rawan banjir bandang dari hulu sungai",
         "keterangan": "Perbatasan Banten, kontur curam",
-        "gambar": ""
+        "gambar": "assets/cisolok.jpeg"
       },
       "geometry": {
         "type": "Point",
@@ -39,7 +39,7 @@
         "lokasi_spesifik": "Pemukiman Lembah Cikakak",
         "penyebab": "Potensi banjir bandang dan longsor",
         "keterangan": "Wilayah dengan riwayat bencana campuran",
-        "gambar": ""
+        "gambar": "assets/cikakak.jpeg"
       },
       "geometry": {
         "type": "Point",
@@ -54,7 +54,7 @@
         "lokasi_spesifik": "Muara Sungai Cimandiri",
         "penyebab": "Pertemuan arus sungai besar dan pasang laut",
         "keterangan": "Area muara sangat rawan saat hujan hulu tinggi",
-        "gambar": ""
+        "gambar": "assets/simpenan.jpeg"
       },
       "geometry": {
         "type": "Point",
@@ -69,7 +69,7 @@
         "lokasi_spesifik": "Muara Sungai Cikaso/Cibuni",
         "penyebab": "Sering terdampak luapan muara sungai besar",
         "keterangan": "Daerah hilir, air kiriman dari utara",
-        "gambar": ""
+        "gambar": "assets/tegalbuled.jpg"
       },
       "geometry": {
         "type": "Point",
@@ -114,7 +114,7 @@
         "lokasi_spesifik": "Desa Cidolog / Jembatan Utama",
         "penyebab": "Banjir luapan sungai",
         "keterangan": "Sering memutus akses jalan",
-        "gambar": ""
+        "gambar": "assets/cidolog.jpeg"
       },
       "geometry": {
         "type": "Point",
@@ -130,7 +130,7 @@
         "lokasi_spesifik": "Kp. Lembur, Desa Sukaraja",
         "penyebab": "Banjir lintasan akibat drainase",
         "keterangan": "Banjir drainase pemukiman",
-        "gambar": ""
+        "gambar": "assets/sukaraja.jpg"
       },
       "geometry": {
         "type": "Point",
@@ -145,7 +145,7 @@
         "lokasi_spesifik": "Kaki Gunung Gede Pangrango",
         "penyebab": "Kemiringan lereng curam",
         "keterangan": "Waspada pergerakan tanah saat hujan deras",
-        "gambar": ""
+        "gambar": "assets/cirenghas.jpeg"
       },
       "geometry": {
         "type": "Point",
@@ -160,7 +160,7 @@
         "lokasi_spesifik": "Jalan Suryakencana / Kota",
         "penyebab": "Banjir bandang dari aliran sungai dataran tinggi",
         "keterangan": "Jalan nasional sering terendam",
-        "gambar": ""
+        "gambar": "assets/cibadak.jpeg"
       },
       "geometry": {
         "type": "Point",
@@ -175,7 +175,7 @@
         "lokasi_spesifik": "Pusat Kecamatan Jampang Tengah",
         "penyebab": "Risiko banjir rendah, namun tanah labil",
         "keterangan": "Lebih rawan pergerakan tanah dibanding banjir",
-        "gambar": ""
+        "gambar": "assets/jampangtengah.jpeg"
       },
       "geometry": {
         "type": "Point",
@@ -190,7 +190,7 @@
         "lokasi_spesifik": "Area Perbukitan Nyalindung",
         "penyebab": "Topografi miring dan curam",
         "keterangan": "Dominan rawan longsor saat hujan deras",
-        "gambar": ""
+        "gambar": "assets/nyalindung.jpeg"
       },
       "geometry": {
         "type": "Point",
@@ -205,7 +205,7 @@
         "lokasi_spesifik": "Dataran Tinggi Purabaya",
         "penyebab": "Kontur tanah perbukitan",
         "keterangan": "Aman dari banjir genangan, waspada longsor",
-        "gambar": ""
+        "gambar": "assets/purabaya.jpeg"
       },
       "geometry": {
         "type": "Point",
@@ -220,7 +220,7 @@
         "lokasi_spesifik": "Wilayah Hutan/Kebun Lengkong",
         "penyebab": "Dataran tinggi dan area resapan",
         "keterangan": "Potensi banjir rendah",
-        "gambar": ""
+        "gambar": "assets/lengkong.jpeg"
       },
       "geometry": {
         "type": "Point",
@@ -235,7 +235,7 @@
         "lokasi_spesifik": "Kaki Gunung",
         "penyebab": "Kemiringan lereng",
         "keterangan": "Waspada pergerakan tanah",
-        "gambar": ""
+        "gambar": "assets/cirenghas.jpeg"
       },
       "geometry": {
         "type": "Point",
@@ -250,7 +250,7 @@
         "lokasi_spesifik": "Hulu Sungai",
         "penyebab": "Wilayah hulu dengan arus deras",
         "keterangan": "Risiko lebih ke longsor dibanding banjir genangan",
-        "gambar": ""
+        "gambar": "assets/kabandungan.jpeg"
       },
       "geometry": {
         "type": "Point",
@@ -265,7 +265,7 @@
         "lokasi_spesifik": "Pusat Kecamatan",
         "penyebab": "Topografi berbukit",
         "keterangan": "Potensi banjir rendah",
-        "gambar": ""
+        "gambar": "assets/bantargadung.jpeg"
       },
       "geometry": {
         "type": "Point",
@@ -280,7 +280,7 @@
         "lokasi_spesifik": "Kaki Gunung Pangrango",
         "penyebab": "Dataran tinggi",
         "keterangan": "Aman dari banjir genangan",
-        "gambar": ""
+        "gambar": "assets/caringin.jpeg"
       },
       "geometry": {
         "type": "Point",
@@ -295,7 +295,7 @@
         "lokasi_spesifik": "Pusat Kecamatan",
         "penyebab": "Kontur tanah bergelombang",
         "keterangan": "Risiko rendah",
-        "gambar": ""
+        "gambar": "assets/cicantayan.jpeg"
       },
       "geometry": {
         "type": "Point",
@@ -310,7 +310,7 @@
         "lokasi_spesifik": "Kaki Gunung Salak",
         "penyebab": "Dataran tinggi",
         "keterangan": "Potensi banjir rendah",
-        "gambar": ""
+        "gambar": "assets/cidahu.jpeg"
       },
       "geometry": {
         "type": "Point",
@@ -325,7 +325,7 @@
         "lokasi_spesifik": "Perkebunan Sawit",
         "penyebab": "Alih fungsi lahan",
         "keterangan": "Waspada longsor dan banjir lintasan",
-        "gambar": ""
+        "gambar": "assets/cikidang.jpeg"
       },
       "geometry": {
         "type": "Point",
@@ -340,7 +340,7 @@
         "lokasi_spesifik": "Pusat Keramaian",
         "penyebab": "Drainase perkotaan",
         "keterangan": "Genangan saat hujan deras",
-        "gambar": ""
+        "gambar": "assets/cisaat.jpeg"
       },
       "geometry": {
         "type": "Point",
@@ -355,7 +355,7 @@
         "lokasi_spesifik": "Area Perbukitan",
         "penyebab": "Topografi tinggi",
         "keterangan": "Risiko banjir rendah",
-        "gambar": ""
+        "gambar": "assets/gunungguruh.jpeg"
       },
       "geometry": {
         "type": "Point",
@@ -370,7 +370,7 @@
         "lokasi_spesifik": "Area Pertanian",
         "penyebab": "Sistem irigasi baik",
         "keterangan": "Aman dari banjir besar",
-        "gambar": ""
+        "gambar": "assets/kebonpedes.jpeg"
       },
       "geometry": {
         "type": "Point",
@@ -385,7 +385,7 @@
         "lokasi_spesifik": "Lereng Gunung",
         "penyebab": "Kemiringan tanah",
         "keterangan": "Waspada longsor",
-        "gambar": ""
+        "gambar": "assets/nagrak.jpeg"
       },
       "geometry": {
         "type": "Point",
@@ -400,7 +400,7 @@
         "lokasi_spesifik": "Jalan Nasional",
         "penyebab": "Drainase jalan raya",
         "keterangan": "Genangan mengganggu lalu lintas",
-        "gambar": ""
+        "gambar": "assets/parungkuda.jpeg"
       },
       "geometry": {
         "type": "Point",
@@ -415,7 +415,7 @@
         "lokasi_spesifik": "Wilayah Penyangga Kota",
         "penyebab": "Topografi beragam",
         "keterangan": "Relatif aman",
-        "gambar": ""
+        "gambar": "assets/sukabumi.jpeg"
       },
       "geometry": {
         "type": "Point",
@@ -430,7 +430,7 @@
         "lokasi_spesifik": "Wilayah Selatan",
         "penyebab": "Jauh dari sungai besar",
         "keterangan": "Risiko banjir rendah",
-        "gambar": ""
+        "gambar": "assets/cibitung.jpeg"
       },
       "geometry": {
         "type": "Point",
@@ -445,7 +445,7 @@
         "lokasi_spesifik": "Perbukitan Selatan",
         "penyebab": "Dataran tinggi",
         "keterangan": "Aman dari banjir",
-        "gambar": ""
+        "gambar": "assets/cidadap.jpeg"
       },
       "geometry": {
         "type": "Point",
@@ -460,7 +460,7 @@
         "lokasi_spesifik": "Area Kehutanan",
         "penyebab": "Resapan air tinggi",
         "keterangan": "Risiko rendah",
-        "gambar": ""
+        "gambar": "assets/cimanggu.jpeg"
       },
       "geometry": {
         "type": "Point",
@@ -475,7 +475,7 @@
         "lokasi_spesifik": "Bantaran Sungai",
         "penyebab": "Luapan sungai",
         "keterangan": "Waspada saat hujan deras",
-        "gambar": ""
+        "gambar": "assets/kalibunder.jpg"
       },
       "geometry": {
         "type": "Point",
@@ -490,7 +490,7 @@
         "lokasi_spesifik": "Cekungan",
         "penyebab": "Drainase alam",
         "keterangan": "Genangan lokal",
-        "gambar": ""
+        "gambar": "assets/waluran.jpeg"
       },
       "geometry": {
         "type": "Point",
@@ -505,7 +505,7 @@
         "lokasi_spesifik": "Perkotaan",
         "penyebab": "Drainase kota",
         "keterangan": "Genangan jalan",
-        "gambar": ""
+        "gambar": "assets/jampangkulon.jpeg"
       },
       "geometry": {
         "type": "Point",
@@ -520,7 +520,7 @@
         "lokasi_spesifik": "Dataran Pantai",
         "penyebab": "Topografi datar",
         "keterangan": "Risiko banjir rendah",
-        "gambar": ""
+        "gambar": "assets/surade.jpeg"
       },
       "geometry": {
         "type": "Point",
@@ -535,7 +535,7 @@
         "lokasi_spesifik": "Pesisir",
         "penyebab": "Muara sungai",
         "keterangan": "Waspada pasang air laut",
-        "gambar": ""
+        "gambar": "assets/ciracap.jpeg"
       },
       "geometry": {
         "type": "Point",
@@ -550,7 +550,7 @@
         "lokasi_spesifik": "Lereng Bukit",
         "penyebab": "Campuran longsor banjir",
         "keterangan": "Perlu kewaspadaan",
-        "gambar": ""
+        "gambar": "assets/gegerbitung.webp"
       },
       "geometry": {
         "type": "Point",
@@ -565,7 +565,7 @@
         "lokasi_spesifik": "Perbukitan",
         "penyebab": "Tanah labil",
         "keterangan": "Rawan longsor",
-        "gambar": ""
+        "gambar": "assets/nyalindung.jpeg"
       },
       "geometry": {
         "type": "Point",
@@ -580,7 +580,7 @@
         "lokasi_spesifik": "Dataran Tinggi",
         "penyebab": "Topografi",
         "keterangan": "Aman banjir",
-        "gambar": ""
+        "gambar": "assets/purabaya.jpeg"
       },
       "geometry": {
         "type": "Point",
@@ -595,7 +595,7 @@
         "lokasi_spesifik": "Pusat Kecamatan Jampang tengah",
         "penyebab": "Lebih rawan pergerakan tanah",
         "keterangan": "Daerah dataran tinggi",
-        "gambar": ""
+        "gambar": "assets/jampangtengah.jpeg"
       },
       "geometry": {
         "type": "Point",
@@ -610,7 +610,7 @@
         "lokasi_spesifik": "Hulu Sungai",
         "penyebab": "Wilayah hulu dengan arus deras",
         "keterangan": "Risiko lebih ke longsor dibanding banjir genangan",
-        "gambar": ""
+        "gambar": "assets/kabandungan.jpeg"
       },
       "geometry": {
         "type": "Point",
@@ -625,7 +625,7 @@
         "lokasi_spesifik": "Wilayah Hutan/Kebun Lengkong",
         "penyebab": "Dataran tinggi dan area resapan",
         "keterangan": "Potensi banjir rendah",
-        "gambar": ""
+        "gambar": "assets/lengkong.jpeg"
       },
       "geometry": {
         "type": "Point",
@@ -640,7 +640,7 @@
         "lokasi_spesifik": "Hulu Sungai",
         "penyebab": "Wilayah hulu dengan arus deras",
         "keterangan": "Risiko lebih ke longsor dibanding banjir genangan",
-        "gambar": ""
+        "gambar": "assets/kabandungan.jpeg"
       },
       "geometry": {
         "type": "Point",
@@ -658,7 +658,7 @@
             "lokasi_spesifik": "Wilayah Pesisir Ciracap",
             "penyebab": "Genangan sesaat dan luapan sungai kecil saat hujan lama",
             "keterangan": "Potensi banjir limpasan jalan",
-            "gambar": ""
+            "gambar": "assets/ciracap.jpeg"
           },
           "geometry": {
             "type": "Point",
@@ -673,7 +673,7 @@
             "lokasi_spesifik": "Pusat Kecamatan Waluran",
             "penyebab": "Curah hujan tinggi dan drainase",
             "keterangan": "Waspada genangan di area cekungan",
-            "gambar": ""
+            "gambar": "assets/waluran.jpeg"
           },
           "geometry": {
             "type": "Point",
@@ -688,7 +688,7 @@
             "lokasi_spesifik": "Area Pasar/Terminal Jampangkulon",
             "penyebab": "Banjir limpasan drainase perkotaan",
             "keterangan": "Pusat aktivitas warga, rawan macet saat genangan",
-            "gambar": ""
+            "gambar": "assets/jampangkulon.jpeg"
           },
           "geometry": {
             "type": "Point",
@@ -703,7 +703,7 @@
             "lokasi_spesifik": "Bantaran Sungai Cikaso",
             "penyebab": "Luapan anak sungai",
             "keterangan": "Akses jalan antar desa sering terdampak",
-            "gambar": ""
+            "gambar": "assets/kalibunder.jpg"
           },
           "geometry": {
             "type": "Point",
@@ -718,7 +718,7 @@
             "lokasi_spesifik": "Area Perbukitan Curugkembar",
             "penyebab": "Hujan deras durasi lama",
             "keterangan": "Waspada longsor ringan dan banjir lintasan",
-            "gambar": ""
+            "gambar": "assets/curugkemar.jpeg"
           },
           "geometry": {
             "type": "Point",
@@ -733,7 +733,7 @@
             "lokasi_spesifik": "Kaki Bukit Gegerbitung",
             "penyebab": "Risiko campuran banjir dan longsor",
             "keterangan": "Perlu kewaspadaan ganda (banjir & tanah gerak)",
-            "gambar": ""
+            "gambar": "assets/gegerbitung.webp"
           },
           "geometry": {
             "type": "Point",
@@ -748,7 +748,7 @@
             "lokasi_spesifik": "Jalan Protokol Sukalarang",
             "penyebab": "Banjir limpasan drainase jalan",
             "keterangan": "Jalur lalu lintas utama Sukabumi-Cianjur",
-            "gambar": ""
+            "gambar": "assets/sukalarang.jpeg"
           },
           "geometry": {
             "type": "Point",
@@ -763,7 +763,7 @@
             "lokasi_spesifik": "Kawasan Wisata Situ Gunung",
             "penyebab": "Limpasan air dari kaki gunung",
             "keterangan": "Debit air meningkat cepat saat hujan di gunung",
-            "gambar": ""
+            "gambar": "assets/kadudampit.jpeg"
           },
           "geometry": {
             "type": "Point",
@@ -778,7 +778,7 @@
             "lokasi_spesifik": "Pemukiman Lereng Ciambar",
             "penyebab": "Drainase buruk dan curah hujan tinggi",
             "keterangan": "Genangan air di area pemukiman padat",
-            "gambar": ""
+            "gambar": "assets/ciambar.jpeg"
           },
           "geometry": {
             "type": "Point",
@@ -793,7 +793,7 @@
             "lokasi_spesifik": "Area Persawahan Bojonggenteng",
             "penyebab": "Luapan irigasi teknis",
             "keterangan": "Berdampak pada lahan pertanian",
-            "gambar": ""
+            "gambar": "assets/bojonggenteng.jpeg"
           },
           "geometry": {
             "type": "Point",
@@ -808,7 +808,7 @@
             "lokasi_spesifik": "Perkebunan Teh Parakansalak",
             "penyebab": "Aliran permukaan deras",
             "keterangan": "Waspada erosi dan luapan selokan",
-            "gambar": ""
+            "gambar": "assets/parakansalak.jpeg"
           },
           "geometry": {
             "type": "Point",
@@ -823,7 +823,7 @@
             "lokasi_spesifik": "Pusat Kecamatan Kalapanunggal",
             "penyebab": "Intensitas hujan tinggi di hulu",
             "keterangan": "Genangan sesaat di jalan poros kecamatan",
-            "gambar": ""
+            "gambar": "assets/kalapanuggal.jpeg"
           },
           "geometry": {
             "type": "Point",
@@ -840,7 +840,7 @@
         "lokasi_spesifik": "Area Citarik / Jayanti / Pesisir",
         "penyebab": "Sering terjadi banjir rob dan luapan sungai",
         "keterangan": "Pusat pemerintahan dan wisata, dampak ekonomi tinggi",
-        "gambar": ""
+        "gambar": "assets/pelabuhanratu.jpg"
       },
       "geometry": {
         "type": "Point",
@@ -855,7 +855,7 @@
         "lokasi_spesifik": "Bantaran Sungai Lokal Cisolok",
         "penyebab": "Rawan banjir bandang dari hulu sungai",
         "keterangan": "Perbatasan Banten, kontur curam",
-        "gambar": ""
+        "gambar": "assets/cisolok.jpeg"
       },
       "geometry": {
         "type": "Point",
@@ -870,7 +870,7 @@
         "lokasi_spesifik": "Pemukiman Lembah Cikakak",
         "penyebab": "Potensi banjir bandang dan longsor",
         "keterangan": "Wilayah dengan riwayat bencana campuran",
-        "gambar": ""
+        "gambar": "assets/cikakak.jpg"
       },
       "geometry": {
         "type": "Point",
@@ -885,7 +885,7 @@
         "lokasi_spesifik": "Muara Sungai Cimandiri",
         "penyebab": "Pertemuan arus sungai besar dan pasang laut",
         "keterangan": "Area muara sangat rawan saat hujan hulu tinggi",
-        "gambar": ""
+        "gambar": "assets/simpenan.jpeg"
       },
       "geometry": {
         "type": "Point",
@@ -900,7 +900,7 @@
         "lokasi_spesifik": "Muara Sungai Cikaso/Cibuni",
         "penyebab": "Sering terdampak luapan muara sungai besar",
         "keterangan": "Daerah hilir, air kiriman dari utara",
-        "gambar": ""
+        "gambar": "assets/tegalbuled.jpg"
       },
       "geometry": {
         "type": "Point",
@@ -945,7 +945,7 @@
         "lokasi_spesifik": "Jalan Utama Cidolog",
         "penyebab": "Banjir rendaman (cekungan)",
         "keterangan": "Sering memutus akses jalan provinsi",
-        "gambar": ""
+        "gambar": "assets/cidolog.jpeg"
       },
       "geometry": {
         "type": "Point",
@@ -960,7 +960,7 @@
         "lokasi_spesifik": "Perumahan/Pemukiman Sukaraja",
         "penyebab": "Banjir limpasan drainase dan sungai kecil",
         "keterangan": "Urban flooding (banjir perkotaan)",
-        "gambar": ""
+        "gambar": "assets/sukaraja.jpg"
       },
       "geometry": {
         "type": "Point",
@@ -975,7 +975,7 @@
         "lokasi_spesifik": "Desa Ubrug",
         "penyebab": "Luapan Sungai Cimandiri",
         "keterangan": "Arus sungai deras dan volume besar",
-        "gambar": ""
+        "gambar": "assets/warungkiara.jpg"
       },
       "geometry": {
         "type": "Point",
@@ -990,7 +990,7 @@
         "lokasi_spesifik": "Wilayah Hilir Pabuaran",
         "penyebab": "Pertemuan arus sungai",
         "keterangan": "Rawan banjir kiriman",
-        "gambar": ""
+        "gambar": "assets/pabuaran.jpeg"
       },
       "geometry": {
         "type": "Point",
