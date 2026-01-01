@@ -238,7 +238,6 @@ fetch('banjir_risk_point.json?t=' + new Date().getTime())
       },
       onEachFeature: function (feature, layer) {
         var p = feature.properties;
-        // Ambil Koordinat untuk API (GeoJSON formatnya [Lng, Lat])
         var coords = feature.geometry.coordinates;
 
         // [PENTING] Tambahkan ID unik ke layer untuk pencarian
@@ -301,7 +300,7 @@ fetch('banjir_risk_point.json?t=' + new Date().getTime())
   .catch((err) => console.error('Gagal load banjir_risk_point:', err));
 
 // ============================================================
-// 8. LOGIKA PENCARIAN (SIDEBAR) & AI ADVISOR
+// 8. LOGIKA PENCARIAN (SIDEBAR)
 // ============================================================
 
 function searchLocation() {
@@ -358,10 +357,10 @@ function searchLocation() {
         }
 
         weatherBox.innerHTML = `
-                    <div style="font-weight:bold; margin-bottom:4px;">Cuaca Saat Ini:</div>
-                    <div style="font-size:14px;">🌡️ ${temp}°C &nbsp; | &nbsp; 💧 ${rain} mm</div>
-                    <div style="color:${color}; font-weight:bold; margin-top:4px;">${statusHujan}</div>
-                `;
+           <div style="font-weight:bold; margin-bottom:4px;">Cuaca Saat Ini:</div>
+           <div style="font-size:14px;">🌡️ ${temp}°C &nbsp; | &nbsp; 💧 ${rain} mm</div>
+           <div style="color:${color}; font-weight:bold; margin-top:4px;">${statusHujan}</div>
+        `;
       })
       .catch((err) => {
         console.error(err);
@@ -399,10 +398,6 @@ function resetSearch() {
 
 // ============================================================
 // 9. LOGIKA AI ADVISOR (GOOGLE GEMINI) - FINAL FIX
-// ============================================================
-
-// ============================================================
-// 9. LOGIKA AI ADVISOR (GOOGLE GEMINI) - FINAL FIX 2.0
 // ============================================================
 
 async function askGeminiAI() {
@@ -452,9 +447,9 @@ async function askGeminiAI() {
     `;
 
   try {
-    // [UPDATE PENTING] Menggunakan URL Endpoint Gemini 1.5 Flash (Versi Stabil Terbaru)
-    // URL ini lebih jarang error 404 dibanding gemini-pro biasa
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+    // [UPDATE PENTING] Menggunakan model 'gemini-pro' (Tanpa Versi Angka)
+    // Ini adalah URL paling stabil yang jarang error 404
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
 
     const response = await fetch(url, {
       method: 'POST',
@@ -466,7 +461,6 @@ async function askGeminiAI() {
 
     // Cek jika ada error HTTP
     if (!response.ok) {
-      // Baca pesan error detail dari Google jika ada
       const errorData = await response.json();
       const errorMessage = errorData.error?.message || `HTTP Status: ${response.status}`;
       throw new Error(errorMessage);
@@ -474,9 +468,9 @@ async function askGeminiAI() {
 
     const data = await response.json();
 
-    // Pastikan data kandidat ada
+    // Validasi apakah AI memberikan jawaban
     if (!data.candidates || data.candidates.length === 0) {
-      throw new Error('AI tidak memberikan jawaban (Empty Response).');
+      throw new Error('AI tidak memberikan respon (Kandidat kosong).');
     }
 
     const aiReply = data.candidates[0].content.parts[0].text;
@@ -491,7 +485,14 @@ async function askGeminiAI() {
   } catch (error) {
     console.error('Error AI:', error);
     loadingText.style.display = 'none';
-    contentText.innerHTML = `<span style='color:red; font-size:11px;'><b>Gagal Menghubungi AI.</b><br>Detail: ${error.message}</span>`;
+
+    // Tampilkan pesan error detail
+    let pesanError = error.message;
+    if (pesanError.includes('not found')) {
+      pesanError = 'Model AI sedang maintenance/tidak ditemukan. Coba lagi nanti.';
+    }
+
+    contentText.innerHTML = `<span style='color:red; font-size:11px;'><b>Gagal Menghubungi AI.</b><br>${pesanError}</span>`;
   } finally {
     btnAi.disabled = false;
     btnAi.innerText = '✨ Analisis Risiko Sekarang';
