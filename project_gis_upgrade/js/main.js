@@ -22,8 +22,11 @@ var polygonLayer = L.layerGroup().addTo(map);
 var floodPointsLayer = L.layerGroup().addTo(map);
 var bufferLayer = L.layerGroup().addTo(map);
 var weatherLayer = L.layerGroup().addTo(map);
-var geoAiHeatmapLayer = L.layerGroup();
 var geoAiLayer = L.layerGroup().addTo(map);
+
+// Layer Heatmap (Jangan addTo map dulu, biar user yang centang di kontrol layer)
+var geoAiHeatmapLayer = L.layerGroup();
+
 var adminLayer = L.layerGroup().addTo(map);
 var riskAnalysisLayer = L.layerGroup().addTo(map);
 
@@ -34,8 +37,9 @@ const latCisolok = -6.94634;
 const lngCisolok = 106.448544;
 let sungaiGeoJson = null;
 
-// [BARU] Variabel untuk menyimpan data agar bisa dicari
+// [PENTING] Variabel Global
 let globalFloodData = [];
+let currentSearchData = null; // Menyimpan data lokasi terakhir yang dicari
 
 // ============================================================
 // 4. FITUR GEO-AI & CUACA (Fungsi Helper)
@@ -67,12 +71,14 @@ function getWeatherFromAPI(lat, lng, elementId) {
       const el = document.getElementById(`weather-${elementId}`);
       if (el) {
         el.innerHTML = `
-          <div style="font-size:11px; margin-bottom:4px;"><b>📡 Data Real-time (Open-Meteo):</b></div>
-          <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div style="font-size:11px; margin-bottom:4px; border-bottom:1px solid #ddd; padding-bottom:4px;">
+            <b>📡 Data Real-time (Open-Meteo):</b>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; font-size:13px;">
              <span>🌡️ ${temp}°C</span>
              <span>💧 ${rain} mm</span>
           </div>
-          <div style="margin-top:5px; color:${colorText}; font-weight:bold; border-top:1px dashed #ccc; padding-top:2px;">
+          <div style="margin-top:5px; color:${colorText}; font-weight:bold; font-size:12px;">
             ${statusHujan}
           </div>
         `;
@@ -88,9 +94,10 @@ function getWeatherFromAPI(lat, lng, elementId) {
 function updateGeoAIPrediction(rainAmount) {
   geoAiLayer.clearLayers();
   if (!sungaiGeoJson) return;
-  // (Logika GeoAI Anda tetap sama...)
+
   let radiusLuapan = 0;
   let colorPrediksi = '#8e44ad';
+
   if (rainAmount < 0.5) radiusLuapan = 0.05;
   else if (rainAmount >= 0.5 && rainAmount < 2.0) radiusLuapan = 0.3;
   else radiusLuapan = 0.6;
@@ -131,11 +138,14 @@ fetch('map (3).geojson?t=' + new Date().getTime())
         layer.bindTooltip(name, { direction: 'top', offset: [0, -35] });
 
         if (feature.geometry.type === 'Point') {
-          let selectedIcon = new L.Icon.Default();
           const lowerName = name.toLowerCase();
-          if (lowerName.includes('banjir')) layer.addTo(floodPointsLayer);
-          else layer.addTo(markersLayer);
+          if (lowerName.includes('banjir')) {
+            layer.addTo(floodPointsLayer);
+          } else {
+            layer.addTo(markersLayer);
+          }
         }
+
         if (feature.geometry.type === 'LineString') {
           if (name.toLowerCase().includes('sungai')) {
             layer.setStyle({ color: '#3498db', weight: 3 });
@@ -145,6 +155,7 @@ fetch('map (3).geojson?t=' + new Date().getTime())
           }
           layer.addTo(polylineLayer);
         }
+
         if (feature.geometry.type === 'Polygon') {
           layer.setStyle({ color: '#e74c3c', fillOpacity: 0.3 });
           layer.addTo(polygonLayer);
@@ -189,7 +200,7 @@ fetch('banjir_risk_point.json?t=' + new Date().getTime())
     return res.json();
   })
   .then((data) => {
-    // [BARU] Simpan data ke variabel global agar bisa dicari
+    // [PENTING] Simpan data ke variabel global agar bisa dicari
     globalFloodData = data.features;
 
     // ARRAY UNTUK MENAMPUNG TITIK HEATMAP
@@ -212,7 +223,7 @@ fetch('banjir_risk_point.json?t=' + new Date().getTime())
           intensity = 0.6;
         }
 
-        // Push data ke array Heatmap
+        // PENTING: PUSH DATA KE ARRAY HEATMAP
         heatMapPoints.push([latlng.lat, latlng.lng, intensity]);
 
         return L.circleMarker(latlng, {
@@ -227,13 +238,16 @@ fetch('banjir_risk_point.json?t=' + new Date().getTime())
       },
       onEachFeature: function (feature, layer) {
         var p = feature.properties;
+        // Ambil Koordinat untuk API (GeoJSON formatnya [Lng, Lat])
         var coords = feature.geometry.coordinates;
 
-        // [BARU] Tambahkan ID unik ke layer untuk pencarian
+        // [PENTING] Tambahkan ID unik ke layer untuk pencarian
         layer._customId = p.kecamatan.toLowerCase();
 
+        // --- LOGIKA GAMBAR ---
         var imageSrc = p.gambar && p.gambar !== '' ? p.gambar : 'https://via.placeholder.com/300x150?text=No+Image';
 
+        // --- KONTAINER POPUP DENGAN PLACEHOLDER API ---
         var kontenPopup = `
           <div style="font-family: Arial, sans-serif; min-width: 260px;">
             <div style="width: 100%; height: 150px; overflow: hidden; border-radius: 8px; margin-bottom: 10px; background: #eee;">
@@ -261,7 +275,9 @@ fetch('banjir_risk_point.json?t=' + new Date().getTime())
         layer.bindPopup(kontenPopup);
         layer.bindTooltip(p.kecamatan, { direction: 'top', offset: [0, -10] });
 
+        // --- EVENT LISTENER: PANGGIL API SAAT POPUP DIBUKA ---
         layer.on('popupopen', function () {
+          // Panggil API (Tukar posisi karena GeoJSON [Lng, Lat], API butuh [Lat, Lng])
           getWeatherFromAPI(coords[1], coords[0], p.kecamatan.replace(/\s/g, ''));
         });
       },
@@ -270,52 +286,97 @@ fetch('banjir_risk_point.json?t=' + new Date().getTime())
     // --- INISIALISASI LAYER HEATMAP ---
     if (heatMapPoints.length > 0) {
       var heat = L.heatLayer(heatMapPoints, {
-        radius: 35,
-        blur: 20,
+        radius: 35, // Sebaran panas
+        blur: 20, // Kehalusan gradasi
         maxZoom: 12,
-        gradient: { 0.4: 'blue', 0.65: 'lime', 1: 'red' },
+        gradient: { 0.4: 'blue', 0.65: 'lime', 1: 'red' }, // Gradasi warna
       });
+      // Masukkan ke layer group
       geoAiHeatmapLayer.addLayer(heat);
       console.log('GeoAI Heatmap Generated:', heatMapPoints.length, 'points');
     }
+
+    console.log('Data Zonasi Banjir (Lengkap) berhasil dimuat.');
   })
   .catch((err) => console.error('Gagal load banjir_risk_point:', err));
 
 // ============================================================
-// [BARU] 8. LOGIKA PENCARIAN (SIDEBAR)
+// 8. LOGIKA PENCARIAN (SIDEBAR) & AI ADVISOR
 // ============================================================
 
 function searchLocation() {
   var input = document.getElementById('search-input').value.toLowerCase();
   var resultBox = document.getElementById('search-result');
 
-  // Cari data di variabel global
   var foundData = globalFloodData.find((item) => item.properties.kecamatan.toLowerCase().includes(input));
 
   if (foundData) {
+    currentSearchData = foundData; // Simpan data untuk AI
+
     var p = foundData.properties;
     var coords = foundData.geometry.coordinates; // [Lng, Lat]
 
     // 1. Zoom ke lokasi
     map.flyTo([coords[1], coords[0]], 14, { animate: true, duration: 1.5 });
 
-    // 2. Tampilkan Info di Sidebar
+    // 2. Isi Data Teks Sidebar
     document.getElementById('res-nama').innerText = p.kecamatan;
     document.getElementById('res-lat').innerText = coords[1].toFixed(5);
     document.getElementById('res-lng').innerText = coords[0].toFixed(5);
     document.getElementById('res-desc').innerText = p.lokasi_spesifik;
 
+    // 3. Isi Gambar Sidebar
+    var imgUrl = p.gambar && p.gambar !== '' ? p.gambar : 'https://via.placeholder.com/300x150?text=No+Image';
+    document.getElementById('res-img').src = imgUrl;
+
+    // 4. Update Status Badge
     var statusBadge = document.getElementById('res-status');
     statusBadge.innerText = p.status;
-
-    // Warna badge sesuai status
     if (p.status.includes('Merah')) statusBadge.style.background = '#e74c3c';
     else if (p.status.includes('Kuning')) statusBadge.style.background = '#f39c12';
     else statusBadge.style.background = '#2ecc71';
 
+    // 5. Panggil API Cuaca untuk Sidebar
+    var weatherBox = document.getElementById('res-weather');
+    weatherBox.innerHTML = '⏳ Mengambil data cuaca...';
+
+    fetch(`https://api.open-meteo.com/v1/forecast?latitude=${coords[1]}&longitude=${coords[0]}&current=temperature_2m,rain&timezone=Asia%2FJakarta`)
+      .then((response) => response.json())
+      .then((data) => {
+        const rain = data.current.rain;
+        const temp = data.current.temperature_2m;
+        let statusHujan = 'Cerah ☁️';
+        let color = 'green';
+
+        if (rain > 0.5) {
+          statusHujan = 'Hujan Ringan 🌦️';
+          color = 'orange';
+        }
+        if (rain > 5.0) {
+          statusHujan = 'HUJAN DERAS ⛈️';
+          color = 'red';
+        }
+
+        weatherBox.innerHTML = `
+                    <div style="font-weight:bold; margin-bottom:4px;">Cuaca Saat Ini:</div>
+                    <div style="font-size:14px;">🌡️ ${temp}°C &nbsp; | &nbsp; 💧 ${rain} mm</div>
+                    <div style="color:${color}; font-weight:bold; margin-top:4px;">${statusHujan}</div>
+                `;
+      })
+      .catch((err) => {
+        console.error(err);
+        weatherBox.innerHTML = '❌ Gagal memuat cuaca';
+      });
+
+    // Tampilkan Sidebar
     resultBox.style.display = 'block';
 
-    // 3. Buka Popup Marker secara otomatis
+    // Reset Tampilan AI
+    document.getElementById('ai-response').style.display = 'none';
+    document.getElementById('btn-ask-ai').disabled = false;
+    document.getElementById('btn-ask-ai').innerText = '✨ Analisis Risiko Sekarang';
+
+    // 6. Buka Popup Marker di Peta
     riskAnalysisLayer.eachLayer(function (layer) {
       if (layer._customId && layer._customId.includes(input)) {
         layer.openPopup();
@@ -324,6 +385,7 @@ function searchLocation() {
   } else {
     alert('Lokasi tidak ditemukan dalam database risiko banjir.');
     resultBox.style.display = 'none';
+    currentSearchData = null;
   }
 }
 
@@ -332,15 +394,116 @@ function resetSearch() {
   document.getElementById('search-result').style.display = 'none';
   map.setView([-6.931899954351185, 106.92898164923656], 10);
   map.closePopup();
+  currentSearchData = null;
 }
 
-// Listener Enter Key
+// ============================================================
+// 9. LOGIKA AI ADVISOR (GOOGLE GEMINI) - FINAL FIX
+// ============================================================
+
+// ============================================================
+// 9. LOGIKA AI ADVISOR (GOOGLE GEMINI) - FINAL FIX 2.0
+// ============================================================
+
+async function askGeminiAI() {
+  if (!currentSearchData) {
+    alert('Silakan cari lokasi kecamatan terlebih dahulu!');
+    return;
+  }
+
+  const apiKey = 'AIzaSyAWcmpMCpb4kjicPtz9J8VjpcUH6fOYxs0'; // API KEY ANDA
+
+  // Elemen UI
+  const responseBox = document.getElementById('ai-response');
+  const loadingText = document.getElementById('ai-loading');
+  const contentText = document.getElementById('ai-text');
+  const btnAi = document.getElementById('btn-ask-ai');
+
+  // Tampilkan Loading
+  responseBox.style.display = 'block';
+  loadingText.style.display = 'block';
+  contentText.innerHTML = '';
+  btnAi.disabled = true;
+  btnAi.innerText = 'Sedang berpikir...';
+
+  // Ambil Data dari Sidebar
+  const namaLokasi = document.getElementById('res-nama').innerText;
+  const statusZona = document.getElementById('res-status').innerText;
+  const infoCuaca = document.getElementById('res-weather').innerText.replace(/\n/g, ' ');
+
+  const prompt = `
+        Bertindaklah sebagai Ahli Mitigasi Bencana.
+        Analisis kondisi berikut untuk memberikan saran keselamatan singkat (maksimal 3 poin).
+        
+        Data Lokasi:
+        - Kecamatan: ${namaLokasi}, Kabupaten Sukabumi
+        - Status Zona: ${statusZona}
+        - Kondisi Cuaca Saat Ini: ${infoCuaca}
+        
+        Berikan jawaban dengan format HTML (gunakan tag <b> untuk penekanan):
+        ⚠️ <b>Analisis Risiko:</b> [Jelaskan singkat risiko]
+        <br><br>
+        🛡️ <b>Saran Tindakan:</b>
+        1. [Saran 1]
+        2. [Saran 2]
+        3. [Saran 3]
+        
+        Gunakan bahasa Indonesia yang tegas namun menenangkan.
+    `;
+
+  try {
+    // [UPDATE PENTING] Menggunakan URL Endpoint Gemini 1.5 Flash (Versi Stabil Terbaru)
+    // URL ini lebih jarang error 404 dibanding gemini-pro biasa
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }],
+      }),
+    });
+
+    // Cek jika ada error HTTP
+    if (!response.ok) {
+      // Baca pesan error detail dari Google jika ada
+      const errorData = await response.json();
+      const errorMessage = errorData.error?.message || `HTTP Status: ${response.status}`;
+      throw new Error(errorMessage);
+    }
+
+    const data = await response.json();
+
+    // Pastikan data kandidat ada
+    if (!data.candidates || data.candidates.length === 0) {
+      throw new Error('AI tidak memberikan jawaban (Empty Response).');
+    }
+
+    const aiReply = data.candidates[0].content.parts[0].text;
+
+    // Format Teks
+    const formattedReply = aiReply
+      .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>') // Bold markdown ke HTML
+      .replace(/\n/g, '<br>'); // Enter ke HTML
+
+    loadingText.style.display = 'none';
+    contentText.innerHTML = formattedReply;
+  } catch (error) {
+    console.error('Error AI:', error);
+    loadingText.style.display = 'none';
+    contentText.innerHTML = `<span style='color:red; font-size:11px;'><b>Gagal Menghubungi AI.</b><br>Detail: ${error.message}</span>`;
+  } finally {
+    btnAi.disabled = false;
+    btnAi.innerText = '✨ Analisis Risiko Sekarang';
+  }
+}
+
 document.getElementById('search-input').addEventListener('keypress', function (e) {
   if (e.key === 'Enter') searchLocation();
 });
 
 // ============================================================
-// 9. LAYER CONTROL
+// 10. LAYER CONTROL
 // ============================================================
 var baseMaps = {
   'Peta Jalan (OSM)': osm,
@@ -351,7 +514,7 @@ var overlayMaps = {
   '<span style="font-weight:bold; color:red;">🔴 Analisis Zonasi Rawan</span>': riskAnalysisLayer,
   '<span style="font-weight:bold;">Analisis Zona Buffer</span>': bufferLayer,
   '<span style="color:blue;">Info Curah Hujan (Live)</span>': weatherLayer,
-  '<span style="color:purple; font-weight:bol d;">[GeoAI] Prediksi Luapan</span>': geoAiLayer,
+  '<span style="color:purple; font-weight:bold;">[GeoAI] Prediksi Luapan</span>': geoAiLayer,
   'Batas Administrasi (Kecamatan)': adminLayer,
   '<span style="color: #e74c3c; font-weight: bold;">🔥 GeoAI: Heatmap Kepadatan</span>': geoAiHeatmapLayer,
 };
