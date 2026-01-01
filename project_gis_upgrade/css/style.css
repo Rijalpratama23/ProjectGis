@@ -304,6 +304,11 @@ path.leaflet-interactive:focus {
     min-width: 200px !important; /* Lebar minimal popup */
     max-width: 250px !important; /* Jangan terlalu lebar */
   }
+  .info-legend {
+    position: sticky;
+    top: 20px;
+    width: 15px;
+  }
 
   .leaflet-popup-content h3 {
     font-size: 14px !important; /* Perkecil judul kecamatan di popup */
@@ -311,6 +316,31 @@ path.leaflet-interactive:focus {
 
   .leaflet-popup-content img {
     height: 100px !important; /* Perkecil tinggi gambar di popup */
+  }
+  .leaflet-touch .leaflet-control-layers,
+  .leaflet-control-layers {
+    position: fixed !important; /* Paksa keluar dari posisi default */
+    top: auto !important; /* Matikan posisi atas */
+    bottom: 30px !important; /* Tempel di bawah (sesuaikan tinggi footer jika ada) */
+    right: 20px !important; /* Tempel di kanan */
+    left: auto !important;
+    margin: 0 !important;
+    z-index: 2000 !important; /* Pastikan di atas peta */
+  }
+
+  /* Tampilan saat Layer Dibuka (Expanded) */
+  .leaflet-control-layers-expanded {
+    max-width: 210px;
+    bottom: 30px !important; /* Kunci posisi bawah */
+    top: auto !important; /* Biarkan tumbuh ke atas */
+
+    /* Opsional: Agar tidak terlalu panjang menutupi layar */
+    max-height: 50vh;
+    overflow-y: auto;
+
+    /* Kosmetik tambahan agar terlihat seperti Card melayang */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+    border-radius: 8px !important;
   }
 }
 
@@ -326,8 +356,8 @@ path.leaflet-interactive:focus {
     left: 5px; /* Lebih mepet kiri */
   }
   .sidebar-container {
-    width: 50%; /* Lebar penuh di HP */
+    width: 90%; /* Lebar penuh di HP */
     left: 5%;
-    top: 80px;
+    top: 90px;
   }
 }
