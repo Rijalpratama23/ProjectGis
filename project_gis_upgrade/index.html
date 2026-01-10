@@ -14,30 +14,25 @@
   <body>
     <div>
       <div class="sidebar-container">
-        <div class="pembungkus">
-          
-        </div>
+        <div class="pembungkus"></div>
         <div class="search-box">
           <input type="text" id="search-input" placeholder="Cari Kecamatan..." />
           <button onclick="searchLocation()">🔍</button>
         </div>
 
         <div id="search-result" class="result-box" style="display: none">
-          
           <div class="result-image-box">
-             <img id="res-img" src="" alt="Lokasi" onerror="this.src='https://via.placeholder.com/300x150?text=No+Image'">
+            <img id="res-img" src="" alt="Lokasi" onerror="this.src='https://via.placeholder.com/300x150?text=No+Image'" />
           </div>
 
           <h3>Hasil Pencarian</h3>
-          
+
           <div class="result-item">
             <span class="label">Lokasi:</span>
             <span id="res-nama" class="value">-</span>
           </div>
 
-          <div id="res-weather" class="weather-widget-sidebar">
-             ⏳ Memuat data cuaca...
-          </div>
+          <div id="res-weather" class="weather-widget-sidebar">⏳ Memuat data cuaca...</div>
 
           <div class="result-item">
             <span class="label">Koordinat:</span>
@@ -54,37 +49,19 @@
             <span class="label">Info:</span>
             <p id="res-desc" class="value-text">-</p>
           </div>
-          
+
           <button onclick="resetSearch()" class="btn-reset">Reset / Tutup</button>
-
-          <hr style="margin: 15px 0; border: 0; border-top: 1px dashed #ccc;">
-
-          <div class="ai-section">
-            <h4 style="margin: 0 0 10px 0; color: #8e44ad;">🤖 AI Disaster Advisor</h4>
-            <p style="font-size: 11px; color: #666; margin-bottom: 10px;">
-                Minta saran keselamatan berdasarkan lokasi & cuaca saat ini.
-            </p>
-            
-            <button id="btn-ask-ai" onclick="askGeminiAI()" class="btn-ai">
-                ✨ Analisis Risiko Sekarang
-            </button>
-
-            <div id="ai-response" class="ai-response-box" style="display: none;">
-                <div id="ai-loading" style="display: none;">
-                    ⏳ Sedang menganalisis situasi...
-                </div>
-                <div id="ai-text" class="ai-text-content"></div>
-            </div>
-          </div>
-          </div>
+        </div>
       </div>
 
       <h1 class="judul">
         <div class="logo">
           <img src="assets/kabupatenSukabumi-removebg-preview.png" alt="logo" width="150px" />
         </div>
-        Pemetaan Rawan Banjir <br />
-        Kabupaten Sukabumi
+        <div>
+          Pemetaan Rawan Banjir <br />
+          Kabupaten Sukabumi
+        </div>
       </h1>
     </div>
     <div id="map"></div>
@@ -102,6 +79,30 @@
       <div class="legend-item">
         <div class="circle-color" style="background: green; border: 1px solid darkgreen"></div>
         <span>Aman (500m - 1km)</span>
+      </div>
+    </div>
+
+    <!-- chatbot tanggap bencana -->
+    <div class="chatbot-container">
+      <button id="chatbot-toggle" onclick="toggleChat()" class="chatbot-btn"><span><img src="assets/chatbot.png" alt="pisture" style="width: 40px;"></span></button>
+
+      <div id="chatbot-box" class="chatbot-box" style="display: none">
+        <div class="chat-header">
+          <span>🤖 Asisten Siaga Bencana</span>
+          <button onclick="toggleChat()" class="close-chat-btn">✖</button>
+        </div>
+
+        <div id="chat-messages" class="chat-messages">
+          <div class="message bot-msg">
+            Halo! 👋 Saya asisten AI BPBD Sukabumi (Virtual).<br />
+            Silakan tanya apa saja tentang persiapan banjir, jalur evakuasi, atau pertolongan pertama.
+          </div>
+        </div>
+
+        <div class="chat-input-area">
+          <input type="text" id="chat-input" placeholder="Ketik pertanyaan..." onkeypress="handleChatEnter(event)" />
+          <button onclick="sendChatMessage()">➤</button>
+        </div>
       </div>
     </div>
 
